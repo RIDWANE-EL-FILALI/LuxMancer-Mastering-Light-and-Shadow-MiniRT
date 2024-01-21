@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void		solve_sphere(double x[2], t_point o, t_point d, t_obj *lst)
+void		solve_sphere(double x[2], t_point o, t_point d, t_obj *lst)
 {
 	double	disc;
 	t_point	oc;

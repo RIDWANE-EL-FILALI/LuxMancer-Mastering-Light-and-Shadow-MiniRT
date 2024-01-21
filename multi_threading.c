@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void		*render_thread(void *ptr)
+void		*render_thread(void *ptr)
 {
 	t_wrapper	*w;
 

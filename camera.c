@@ -1,6 +1,6 @@
 #include "main.h"
 
-static t_point		set_camera(int n, t_rss rss, t_mlx mlx)
+t_point		set_camera(int n, t_rss rss, t_mlx mlx)
 {
 	double	img_asp_ratio;
 	double	correct_fov;
@@ -21,7 +21,7 @@ static t_point		set_camera(int n, t_rss rss, t_mlx mlx)
 	return (p);
 }
 
-static t_point		look_at(t_point d, t_point cam_nv)
+t_point		look_at(t_point d, t_point cam_nv)
 {
 	t_point	x_axis;
 	t_point	y_axis;

@@ -13,7 +13,7 @@ int					*sample_pixel(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
 	return (color);
 }
 
-static int			*sample_first_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
+int			*sample_first_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
 {
 	int		*color;
 
@@ -42,7 +42,7 @@ static int			*sample_first_column(int *edge_color, int last[2], t_rss rss, t_wra
 	return (color);
 }
 
-static int			*sample_last_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
+int			*sample_last_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
 {
 	int		*color;
 
@@ -70,7 +70,7 @@ static int			*sample_last_column(int *edge_color, int last[2], t_rss rss, t_wrap
 	return (color);
 }
 
-static int			*sample_centered_pixel(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
+int			*sample_centered_pixel(int *edge_color, int last[2], t_rss rss, t_wrapper *w)
 {
 	int		*color;
 

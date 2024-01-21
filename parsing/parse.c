@@ -1,6 +1,6 @@
 #include "../main.h"
 
-static void		parse2(t_obj **lst, char *str)
+void		parse2(t_obj **lst, char *str)
 {
 	if (*str == 'p' && *(str + 1) == 'y' && *(str++) && *(str++))
 		parse_pyramid(lst, &str);
@@ -9,7 +9,7 @@ static void		parse2(t_obj **lst, char *str)
 }
 
 
-static void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
+void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 {
     char *ret;
 
@@ -36,7 +36,7 @@ static void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 	*str = ret;
 }
 
-static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
+void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
 {
     scene->res_init = 0;
     scene->al_init = 0;

@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -22,7 +22,7 @@ static int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapp
 	return (col);
 }
 
-static int			supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int			supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -44,7 +44,7 @@ static int			supersample_second_corner(int *color, int center, t_rss rss, t_wrap
 	return (col);
 }
 
-static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -66,7 +66,7 @@ static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapp
 	return (col);
 }
 
-static int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;

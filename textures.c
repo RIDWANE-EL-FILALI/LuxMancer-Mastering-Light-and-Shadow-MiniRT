@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int	checkerboard(t_inter *inter)
+int	checkerboard(t_inter *inter)
 {
 	int		black;
 	int		white;
@@ -20,7 +20,7 @@ static int	checkerboard(t_inter *inter)
 	return (party_mix ? black : white);
 }
 
-static t_point	sinwave(t_inter *inter, t_obj *lst)
+t_point	sinwave(t_inter *inter, t_obj *lst)
 {
 	double	sinn;
 	double	scal;
@@ -30,7 +30,7 @@ static t_point	sinwave(t_inter *inter, t_obj *lst)
 	return (x_axis_rotation(inter->normal, sinn));
 }
 
-static void		define_color(double r, double g, double b, double color[3])
+void		define_color(double r, double g, double b, double color[3])
 {
 	color[0] = r;
 	color[1] = g;

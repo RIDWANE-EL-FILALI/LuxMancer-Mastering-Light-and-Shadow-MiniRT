@@ -22,7 +22,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) ggl_mlx_define.h main.h libft/libft.h
 	@ar rc $(NAME) $(OBJ)
-	@${CC} ${CFLAGS} ${FRAMEWORK} ${NAME} -o MiniRT
+	@${CC} ${FRAMEWORK} ${CFLAGS} ${NAME} -o MiniRT
 
 clean :
 	${RM} ${OBJ} ${NAME}

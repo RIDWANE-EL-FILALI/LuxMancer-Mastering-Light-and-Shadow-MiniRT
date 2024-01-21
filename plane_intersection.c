@@ -39,7 +39,7 @@ double			square_intersection(t_point o, t_point d, t_obj *lst)
 	return (INFINITY);
 }
 
-static int		p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)
+int		p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)
 {
 	t_point	v1;
 	t_point	v2;

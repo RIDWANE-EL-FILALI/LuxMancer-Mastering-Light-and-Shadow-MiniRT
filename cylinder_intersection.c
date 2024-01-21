@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
+int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
 {
 	t_point	v;
 	t_point	u;
@@ -27,7 +27,7 @@ static int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
 	return (1);
 }
 
-static t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
+t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
 {
 	double	dist;
 	double	x;
@@ -55,7 +55,7 @@ static t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
 			scal_x_vec(dist, lst->fig.cy.nv)), vsubstr(lst->fig.cy.c, o))));
 }
 
-static double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst)
+double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst)
 {
 	double	x2[2];
 
@@ -73,7 +73,7 @@ static double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst)
 	return (x2[0]);
 }
 
-static double	caps_intersection(t_point o, t_point d, t_obj *lst)
+double	caps_intersection(t_point o, t_point d, t_obj *lst)
 {
 	double	id1;
 	double	id2;

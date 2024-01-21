@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void		init_cube(t_cube *c, t_obj *lst)
+void		init_cube(t_cube *c, t_obj *lst)
 {
 	c->normal[0] = (t_point) {1, 0, 0};
 	c->normal[1] = (t_point) {-1, 0, 0};
@@ -40,7 +40,7 @@ double			cube_intersection(t_point o, t_point d, t_obj *lst)
 	return (cl_inter);
 }
 
-static void		init_pyramid(t_pyr *p, t_obj *lst)
+void		init_pyramid(t_pyr *p, t_obj *lst)
 {
 	int	i;
 

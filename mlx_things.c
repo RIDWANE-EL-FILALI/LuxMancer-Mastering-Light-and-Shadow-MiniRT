@@ -3,8 +3,6 @@
 void		init_mlx(t_mlx *mlx, t_scene *data)
 {
 	t_cam	*cam_begin;
-	int			x_displayres;
-	int			y_displayres;
 
 	mlx->mlx = mlx_init();
 	cam_begin = mlx->cam;

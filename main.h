@@ -246,5 +246,14 @@ static t_point	sinwave(t_inter *inter, t_obj *lst);
 static void		define_color(double r, double g, double b, double color[3]);
 int				rainbow(t_inter *inter);
 void		apply_texture(int texture, t_inter *inter, t_obj *lst);
+static int			supersample_first_corner(int *color, int center,t_rss rss, t_wrapper *w);
+static int			supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w);
+static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w);
+static int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w);
+int					supersample(int *color, t_rss rss, t_wrapper *w);
+
+
+
+
 
 #endif

@@ -1,5 +1,5 @@
 NAME = MiniRT.a
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 FRAMEWORK = -lmlx -framework appkit -framework openGl
 RM = rm -f
 SRC = bmp_creater.c   color.c   cylinder_intersection.c     main.c   multi_threading.c           ray_tracing.c   sample_pixel.c  supersampel.c \
@@ -20,7 +20,7 @@ OBJ = ${SRC:.c=.o}
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) ggl_mlx_define.h main.h objects.h vectors/vectors.h parsing/parse.h libft/libft.h
+$(NAME) : $(OBJ) ggl_mlx_define.h main.h libft/libft.h
 	@ar rc $(NAME) $(OBJ)
 	@${CC} ${CFLAGS} ${FRAMEWORK} ${NAME} -o MiniRT
 

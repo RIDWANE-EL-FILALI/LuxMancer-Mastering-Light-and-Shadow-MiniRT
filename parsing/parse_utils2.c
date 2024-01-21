@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../main.h"
 
 void		ft_addnewlst_back(t_obj **alst)
 {

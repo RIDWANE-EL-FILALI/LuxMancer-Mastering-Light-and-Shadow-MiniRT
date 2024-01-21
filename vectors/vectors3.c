@@ -1,4 +1,4 @@
-#include "vectors.h"
+#include "../main.h"
 
 double  distance(t_point p1, t_point p2)
 {

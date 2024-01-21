@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../main.h"
 
 void		parse_cube(t_obj **elem, char **str)
 {

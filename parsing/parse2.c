@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../main.h"
 
 void		parse_res(t_scene *data, char **str)
 {

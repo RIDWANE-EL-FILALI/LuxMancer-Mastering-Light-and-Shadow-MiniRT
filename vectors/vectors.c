@@ -1,4 +1,4 @@
-#include "vectors.h"
+#include "../main.h"
 
 t_point vector(double x, double y, double z)
 {

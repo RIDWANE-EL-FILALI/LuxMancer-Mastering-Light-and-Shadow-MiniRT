@@ -1,4 +1,4 @@
-#include "vectors.h"
+#include "../main.h"
 
 double mod(t_point vector)
 {

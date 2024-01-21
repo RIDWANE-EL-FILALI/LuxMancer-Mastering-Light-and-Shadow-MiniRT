@@ -2,7 +2,6 @@
 #define OBJECTS_H
 
 #include "main.h"
-#include "vectors/vectors.h"
 
 typedef struct	s_sphere
 {

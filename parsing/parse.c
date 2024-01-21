@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../main.h"
 
 static void		parse2(t_obj **lst, char *str)
 {

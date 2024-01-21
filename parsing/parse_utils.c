@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../main.h"
 
 char *line(char *str, int fd)
 {

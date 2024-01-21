@@ -6,12 +6,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
-#include "objects.h"
 #include <pthread.h>
 #include "libft/libft.h"
 #include "ggl_mlx_define.h"
-#include "vectors/vectors.h"
-#include "parsing/parse.h"
 # define BUFFER_SIZE 32
 #define RESET_COLOR     "\033[0m"
 #define BLACK_COLOR     "\033[0;30m"
@@ -42,6 +39,59 @@
 # endif
 # define REFLECTION_LIMIT 3
 # define EPSILON 0.00001
+
+typedef struct s_point
+{
+    double x;
+    double y;
+    double z;
+}   t_point;
+
+
+typedef struct	s_sphere
+{
+	t_point	c;
+	double	r;
+	int		inside;
+}				t_sphere;
+
+typedef struct	s_plane
+{
+	t_point	p;
+}				t_plane;
+
+typedef struct	s_square
+{
+	t_point	c;
+	double	side;
+
+}				t_square;
+
+typedef struct	s_cylinder
+{
+	t_point	c;
+	t_point	nv;
+	double	r;
+	double	h;
+	double	dist1;
+	double	dist2;
+}				t_cylinder;
+
+typedef struct	s_triangle
+{
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+}				t_triangle;
+
+union			u_figures
+{
+	t_sphere	sp;
+	t_plane		pl;
+	t_square	sq;
+	t_cylinder	cy;
+	t_triangle	tr;
+};
 
 typedef struct		s_v3
 {
@@ -252,6 +302,45 @@ static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapp
 static int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w);
 int					supersample(int *color, t_rss rss, t_wrapper *w);
 void		graphic_loop(t_mlx mlx, t_scene data);
+void		parse_pyramid(t_obj **elem, char **str);
+void		parse_cube(t_obj **elem, char **str);
+void		parse_cylinder(t_obj **elem, char **str);
+void		parse_triangle(t_obj **elem, char **str);
+void		parse_square(t_obj **elem, char **str);
+void		parse_plane(t_obj **elem, char **str);
+void		parse_sphere(t_obj **elem, char **str);
+int			parse_color(char **str);
+void		in_range(double nb, double min, double max, char *function);
+void		ft_addnewlst_back(t_obj **alst);
+int			stoi(char **str);
+t_point		parse_p3(char **str);
+double		stof(char **str);
+void		comma(char **str);
+void		next(char **str);
+char *line(char *str, int fd);
+static void		parse2(t_obj **lst, char *str);
+static void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
+static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str);
+void parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);
+void		parse_res(t_scene *data, char **str);
+void		parse_ambient_light(t_scene *data, char **str);
+void		parse_camera(t_mlx *mlx, t_scene *data, char **str);
+void		parse_light(t_scene **data, char **str);
+t_point		z_axis_rotation(t_point vec, double angle);
+t_point		y_axis_rotation(t_point vec, double angle);
+t_point		x_axis_rotation(t_point vec, double angle);
+double  distance(t_point p1, t_point p2);
+t_point		scal_x_vec(double n, t_point p);
+double		vcos(t_point a, t_point b);
+double		vsin(t_point a, t_point b);
+t_point normalize(t_point vector);
+double mod(t_point vector);
+t_point cross(t_point a, t_point b);
+t_point cross(t_point a, t_point b);
+t_point vadd(t_point a, t_point b);
+t_point vsubstr(t_point a, t_point b);
+t_point vector(double x, double y, double z);
+double dot(t_point a, t_point b);
 
 
 #endif

@@ -6,6 +6,16 @@
 
 
 
+typedef struct		s_v3 t_v3;
+typedef struct		s_obj t_obj;
+typedef struct s_cam    t_cam;
+typedef struct s_mlx    t_mlx;
+typedef struct		s_light t_light;
+typedef struct		s_scene t_scene;
+typedef struct		s_obj t_obj;
+typedef struct		s_wrapper t_wrapper;
+typedef struct		s_rss t_rss;
+typedef struct		s_inter t_inter;
 
 
 void		parse_pyramid(t_obj **elem, char **str);

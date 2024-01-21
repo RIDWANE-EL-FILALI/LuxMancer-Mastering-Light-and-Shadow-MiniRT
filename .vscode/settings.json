@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "iosfwd": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "libft.h": "c"
     }
 }

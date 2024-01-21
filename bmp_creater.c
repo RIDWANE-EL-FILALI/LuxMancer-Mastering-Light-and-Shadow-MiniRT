@@ -7,7 +7,9 @@ int			create_file(char *name, int i, int j)
 	int		fd;
 
 	path = 0;
-	bmpname = (char *)ec_malloc(ft_strlen(name) + 8);
+	bmpname = (char *)malloc(ft_strlen(name) + 8);
+	if (!bmpname)
+		error_message("erroro creating file");
 	while (name[i])
 		if (name[i++] == '/')
 			path++;
@@ -23,7 +25,7 @@ int			create_file(char *name, int i, int j)
 	ft_strcat(bmpname, ".bmp");
 	if (!((fd = open(bmpname, O_WRONLY | O_CREAT | O_TRUNC,
 													S_IRUSR | S_IWUSR)) > 0))
-		fatal("in do_the_bmp_thing() while creating file");
+		error_message("in do_the_bmp_thing() while creating file");
 	free(bmpname);
 	return (fd);
 }
@@ -74,7 +76,9 @@ void		write_file(int fd, t_scene data, t_mlx mlx)
 	int		i;
 	int		j;
 
-	pixel_array = (char *)ec_malloc(mlx.cam->size_line * data.yres);
+	pixel_array = (char *)malloc(mlx.cam->size_line * data.yres);
+	if (!pixel_array)
+		error_message("error write a file");
 	image_size = data.xres * data.yres;
 	i = 0;
 	j = 0;

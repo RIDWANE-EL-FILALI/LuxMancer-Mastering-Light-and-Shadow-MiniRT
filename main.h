@@ -11,6 +11,7 @@
 #include "parsing/parse.h"
 #include <pthread.h>
 #include "ggl_mlx_define.h"
+#include "libft/libft.h"
 # define BUFFER_SIZE 32
 #define RESET_COLOR     "\033[0m"
 #define BLACK_COLOR     "\033[0;30m"
@@ -187,12 +188,63 @@ typedef struct		s_pyramid
 	t_point			corner[4];
 }					t_pyr;
 
-
-
-
-
-t_point		refract_ray(t_point d, t_point normal, t_obj *lst)
+int			create_file(char *name, int i, int j);
+void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib);
+void		write_header(int fd, t_bmphead header, t_dibhead dib);
+void		write_file(int fd, t_scene data, t_mlx mlx);
+void		save_bmp(t_mlx mlx, t_scene data, char *name);
+static t_point		set_camera(int n, t_rss rss, t_mlx mlx);
+static t_point		look_at(t_point d, t_point cam_nv);
+int				calc_ray(int n, t_rss rss, t_wrapper *w);
+int		cproduct(int color, double coef);
+int		cadd(int color_a, int color_b);
+int		color_x_light(int color, double rgb[3]);
+int		color_difference(int color1, int color2);
+static void		init_cube(t_cube *c, t_obj *lst);
+double			cube_intersection(t_point o, t_point d, t_obj *lst);
+static void		init_pyramid(t_pyr *p, t_obj *lst);
+double			pyramid_intersection(t_point o, t_point d, t_obj *lst);
+static int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst);
+static t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst);
+static double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst);
+static double	caps_intersection(t_point o, t_point d, t_obj *lst);
+double			cylinder_intersection(t_point o, t_point d, t_obj *lst);
+void	add_coeficient(double (*rgb)[3], double coef, int color);
+double	calc_specular(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
+void	compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
+void	calc_normal(t_point p, t_point d, t_point *normal, t_obj *l);
+int		is_lit(t_point o, t_point d, t_obj *lst);
 void error_message(char *str);
+void render_scene(t_wrapper *w);
+void		init_mlx(t_mlx *mlx, t_scene *data);
+void		message_prompt(int ac);
+int			next_cam(int keycode, t_mlx *mlx);
+int			close_program(void *param);
+static void		*render_thread(void *ptr);
+void			rendering(t_wrapper wrapper[NUM_THREADS]);
+void			wrapp_data(t_mlx mlx, t_scene data, t_obj *lst,t_wrapper *wrapper);
+double			solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv);
+double			plane_intersection(t_point o, t_point d, t_obj *lst);
+double			square_intersection(t_point o, t_point d, t_obj *lst);
+static int		p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip);
+double			triangle_intersection(t_point o, t_point d, t_obj *lst);
+void		try_all_intersections(t_v3 ray, t_obj *lst,
+					t_obj *closest_figure, double *closest_intersection);
+int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth);
+int			average(int color1, int color2);
+int			average_supersampled_color(int *color);
 t_point		reflect_ray(t_point ray, t_point normal);
+t_point		refract_ray(t_point d, t_point normal, t_obj *lst);
+int					*sample_pixel(int *edge_color, int last[2], t_rss rss, t_wrapper *w);
+static int			*sample_first_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w);
+static int			*sample_last_column(int *edge_color, int last[2], t_rss rss, t_wrapper *w);
+static int			*sample_centered_pixel(int *edge_color, int last[2], t_rss rss, t_wrapper *w);
+static void		solve_sphere(double x[2], t_point o, t_point d, t_obj *lst);
+double			sphere_intersection(t_point o, t_point d, t_obj *lst);
+static int	checkerboard(t_inter *inter);
+static t_point	sinwave(t_inter *inter, t_obj *lst);
+static void		define_color(double r, double g, double b, double color[3]);
+int				rainbow(t_inter *inter);
+void		apply_texture(int texture, t_inter *inter, t_obj *lst);
 
 #endif

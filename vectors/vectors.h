@@ -27,7 +27,7 @@ t_point cross(t_point a, t_point b);
 t_point vadd(t_point a, t_point b);
 t_point vsubstr(t_point a, t_point b);
 t_point vector(double x, double y, double z);
-
+double dot(t_point a, t_point b);
 
 
 #endif

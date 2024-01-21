@@ -8,7 +8,7 @@ double			solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
 	denom = dot(plane_nv, d);
 	if (denom == 0)
 		return (INFINITY);
-	x = (dot(plane_nv, vsubstract(plane_p, o))) / denom;
+	x = (dot(plane_nv, vsubstr(plane_p, o))) / denom;
 	return (x > 0 ? x : INFINITY);
 }
 

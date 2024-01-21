@@ -7,12 +7,6 @@ void		init_mlx(t_mlx *mlx, t_scene *data)
 	int			y_displayres;
 
 	mlx->mlx = mlx_init();
-	if (OS_NAME == 2)
-	{
-		mlx_get_screen_size(mlx->mlx, &x_displayres, &y_displayres);
-		data->xres = data->xres < x_displayres ? data->xres : x_displayres;
-		data->yres = data->yres < y_displayres ? data->yres : y_displayres;
-	}
 	cam_begin = mlx->cam;
 	mlx->begin = mlx->cam;
 	while (mlx->cam)

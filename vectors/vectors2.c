@@ -1,6 +1,6 @@
 #include "vectors.h"
 
-double modulo(t_point vector)
+double mod(t_point vector)
 {
     return (sqrt(dot(vector, vector)));
 }

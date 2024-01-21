@@ -9,7 +9,7 @@ static void		parse2(t_obj **lst, char *str)
 }
 
 
-static void parse(t_mlx *mlx, t_scene *scene, t_obj *list, char ***str)
+static void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 {
     char *ret;
 
@@ -36,13 +36,13 @@ static void parse(t_mlx *mlx, t_scene *scene, t_obj *list, char ***str)
 	*str = ret;
 }
 
-static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj *list, char **str)
+static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
 {
     scene->res_init = 0;
     scene->al_init = 0;
     while (*str)
     {
-        if (*str == "#")
+        if (*str == '#')
         {
             while (*str && *str != '\n')
                 str++;
@@ -57,7 +57,7 @@ static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj *list, char **str)
 
 void parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 {
-    char **str;
+    char *str;
     int fd;
 
 

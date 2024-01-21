@@ -2,6 +2,9 @@
     "files.associations": {
         "iosfwd": "c",
         "iterator": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "main.h": "c",
+        "mlx.h": "c",
+        "parse.h": "c"
     }
 }

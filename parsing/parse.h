@@ -4,8 +4,6 @@
 
 #include "./../main.h"
 
-
-
 typedef struct		s_v3 t_v3;
 typedef struct		s_obj t_obj;
 typedef struct s_cam    t_cam;
@@ -35,16 +33,13 @@ void		comma(char **str);
 void		next(char **str);
 char *line(char *str, int fd);
 static void		parse2(t_obj **lst, char *str);
-static void parse(t_mlx *mlx, t_scene *scene, t_obj *list, char ***str);
-static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj *list, char **str);
+static void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
+static void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str);
 void parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);
 void		parse_res(t_scene *data, char **str);
 void		parse_ambient_light(t_scene *data, char **str);
 void		parse_camera(t_mlx *mlx, t_scene *data, char **str);
 void		parse_light(t_scene **data, char **str);
-
-
-
 
 
 #endif

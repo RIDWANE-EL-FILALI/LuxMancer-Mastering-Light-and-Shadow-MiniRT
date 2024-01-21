@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
-#include "vectors/vectors.h"
 #include "objects.h"
-#include "parsing/parse.h"
 #include <pthread.h>
-#include "ggl_mlx_define.h"
 #include "libft/libft.h"
+#include "ggl_mlx_define.h"
+#include "vectors/vectors.h"
+#include "parsing/parse.h"
 # define BUFFER_SIZE 32
 #define RESET_COLOR     "\033[0m"
 #define BLACK_COLOR     "\033[0;30m"
@@ -30,11 +30,11 @@
 # define CU 5
 # define PY 6
 # ifdef MACOS
-#  define OS_NAME 1
+# define OS_NAME 1
 # endif
 
 # ifdef LINUX
-#  define OS_NAME 2
+# define OS_NAME 2
 # endif
 
 # ifndef NUM_THREADS
@@ -61,7 +61,7 @@ typedef struct s_cam
 	int				bits_per_pixel;
 	int				size_line;
 	int				endian;
-	struct s_camera	*next;
+	struct s_cam	*next;
 }   t_cam;
 
 typedef struct s_mlx
@@ -104,7 +104,7 @@ typedef struct		s_obj
 	int				texture;
 	t_point			normal;
 	double			wavelength;
-	struct s_figures*next;
+	struct s_obj *next;
 }					t_obj;
 
 typedef struct		s_wrapper
@@ -251,9 +251,7 @@ static int			supersample_second_corner(int *color, int center, t_rss rss, t_wrap
 static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w);
 static int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w);
 int					supersample(int *color, t_rss rss, t_wrapper *w);
-
-
-
+void		graphic_loop(t_mlx mlx, t_scene data);
 
 
 #endif

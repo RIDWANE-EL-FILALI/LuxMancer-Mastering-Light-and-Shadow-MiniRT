@@ -6,7 +6,9 @@ static int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapp
 	int		*subsquare;
 	int		col;
 
-	subsquare = (int *)ec_malloc(sizeof(int) * 4);
+	subsquare = (int *)malloc(sizeof(int) * 4);
+	if (!subsquare)
+		error_message("fatal");
 	subsquare[0] = color[0];
 	subsquare[1] = calc_ray(1, rss, w);
 	subsquare[2] = calc_ray(3, rss, w);
@@ -26,7 +28,9 @@ static int			supersample_second_corner(int *color, int center, t_rss rss, t_wrap
 	int		*subsquare;
 	int		col;
 
-	subsquare = (int *)ec_malloc(sizeof(int) * 4);
+	subsquare = (int *)malloc(sizeof(int) * 4);
+	if (!subsquare)
+		error_message("fattal");
 	subsquare[0] = calc_ray(3, rss, w);
 	subsquare[1] = color[1];
 	subsquare[2] = center;
@@ -46,7 +50,9 @@ static int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapp
 	int		*subsquare;
 	int		col;
 
-	subsquare = (int *)ec_malloc(sizeof(int) * 4);
+	subsquare = (int *)malloc(sizeof(int) * 4);
+	if (!subsquare)
+		error_message("fattal");
 	subsquare[0] = calc_ray(3, rss, w);
 	subsquare[1] = center;
 	subsquare[2] = color[2];
@@ -66,7 +72,9 @@ static int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrap
 	int		*subsquare;
 	int		col;
 
-	subsquare = (int *)ec_malloc(sizeof(int) * 4);
+	subsquare = (int *)malloc(sizeof(int) * 4);
+	if (!subsquare)
+		error_message("fattal");
 	subsquare[0] = center;
 	subsquare[1] = calc_ray(5, rss, w);
 	subsquare[2] = calc_ray(7, rss, w);

@@ -2,6 +2,7 @@
 #define OBJECTS_H
 
 #include "main.h"
+#include "vectors/vectors.h"
 
 typedef struct	s_sphere
 {
@@ -47,9 +48,6 @@ union			u_figures
 	t_cylinder	cy;
 	t_triangle	tr;
 };
-
-
-
 
 
 #endif

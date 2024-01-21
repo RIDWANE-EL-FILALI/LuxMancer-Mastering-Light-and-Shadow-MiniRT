@@ -21,7 +21,7 @@ t_point		scal_x_vec(double n, t_point p);
 double		vcos(t_point a, t_point b);
 double		vsin(t_point a, t_point b);
 t_point normalize(t_point vector);
-double modulo(t_point vector);
+double mod(t_point vector);
 t_point cross(t_point a, t_point b);
 t_point cross(t_point a, t_point b);
 t_point vadd(t_point a, t_point b);

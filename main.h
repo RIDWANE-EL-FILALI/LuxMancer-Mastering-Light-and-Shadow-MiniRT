@@ -101,7 +101,6 @@ typedef struct		s_v3
 
 typedef struct s_cam
 {
-	int				init;
 	int				idx;
 	t_point			o;
 	t_point			nv;
@@ -120,7 +119,7 @@ typedef struct s_mlx
     void *win;
     t_cam *cam;
     t_cam *begin;
-}   t_mlx;
+}			t_mlx;
 
 typedef struct		s_light
 {

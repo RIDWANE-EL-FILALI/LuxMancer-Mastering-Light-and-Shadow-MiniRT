@@ -17,7 +17,9 @@ int	checkerboard(t_inter *inter)
 	val.y = (int)coords.y % 2;
 	val.z = (int)coords.z % 2;
 	party_mix = ((int)val.x ^ (int)val.y) ^ (int)val.z;
-	return (party_mix ? black : white);
+	if (party_mix)
+		return black;
+    return white;
 }
 
 t_point	sinwave(t_inter *inter, t_obj *lst)

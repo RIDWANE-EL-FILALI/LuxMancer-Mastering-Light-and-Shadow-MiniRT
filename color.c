@@ -11,9 +11,12 @@ int		cproduct(int color, double coef)
 	r = coef * ((color & (mask << 16)) >> 16);
 	g = coef * ((color & (mask << 8)) >> 8);
 	b = coef * (color & mask);
-	r = r > 255 ? 255 : r;
-	g = g > 255 ? 255 : g;
-	b = b > 255 ? 255 : b;
+	if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -44,9 +47,12 @@ int		color_x_light(int color, double rgb[3])
 	g = rgb[1] * ((color & mask) >> 8);
 	mask >>= 8;
 	b = rgb[2] * (color & mask);
-	r = r > 255 ? 255 : r;
-	g = g > 255 ? 255 : g;
-	b = b > 255 ? 255 : b;
+	if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
 	return ((r << 16) | (g << 8) | b);
 }
 

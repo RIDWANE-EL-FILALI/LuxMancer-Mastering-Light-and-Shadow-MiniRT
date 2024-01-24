@@ -80,7 +80,10 @@ double			pyramid_intersection(t_point o, t_point d, t_obj *lst)
 	while (i < 4)
 	{
 		p.tr.fig.tr.p1 = p.corner[i];
-		p.tr.fig.tr.p2 = i < 3 ? p.corner[i + 1] : p.corner[0];
+		if (i < 3)
+			p.tr.fig.tr.p2 = p.corner[i + 1];
+		else
+			p.tr.fig.tr.p2 = p.corner[0];
 		p.tr.normal = cross(vsubstr(p.tr.fig.tr.p3, p.tr.fig.tr.p1),
 							vsubstr(p.tr.fig.tr.p2, p.tr.fig.tr.p1));
 		inter = triangle_intersection(o, d, &(p.tr));

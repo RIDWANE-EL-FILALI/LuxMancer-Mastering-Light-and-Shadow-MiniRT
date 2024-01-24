@@ -199,11 +199,7 @@
 ** CLR_KEY is the clear key
 */
 
-# ifdef MACOS
-#  define ESC_KEY 53
-# else
-#  define ESC_KEY 65307
-# endif
+# define ESC_KEY 53
 # define TAB_KEY 48
 # define CL_KEY 272
 # define LSFT_KEY 65505

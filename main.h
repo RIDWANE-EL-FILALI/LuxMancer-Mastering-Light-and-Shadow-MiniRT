@@ -341,5 +341,13 @@ t_point vsubstr(t_point a, t_point b);
 t_point vector(double x, double y, double z);
 double dot(t_point a, t_point b);
 
+//manda
+void parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);
+void parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
+void		parse_cylinder_manda(t_obj **elem, char **str);
+void		parse_sphere_manda(t_obj **elem, char **str);
+void		parse_plane_manda(t_obj **elem, char **str);
+void		try_all_intersections_manda(t_v3 ray, t_obj *lst,
+					t_obj *closest_figure, double *closest_intersection);
 
 #endif

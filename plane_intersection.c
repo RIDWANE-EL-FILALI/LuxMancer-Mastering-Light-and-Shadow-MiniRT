@@ -9,7 +9,9 @@ double			solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
 	if (denom == 0)
 		return (INFINITY);
 	x = (dot(plane_nv, vsubstr(plane_p, o))) / denom;
-	return (x > 0 ? x : INFINITY);
+	if (x > 0)
+		return (x);
+	return (INFINITY);
 }
 
 double			plane_intersection(t_point o, t_point d, t_obj *lst)
@@ -27,7 +29,10 @@ double			square_intersection(t_point o, t_point d, t_obj *lst)
 
 	id = solve_plane(o, d, lst->fig.sq.c, lst->normal);
 	ip = vadd(o, scal_x_vec(id, d));
-	sq.floor = fabs(lst->normal.y) == 1 ? vector(1, 0, 0) : vector(0, 1, 0);
+	if (fabs(lst->normal.y) == 1)
+		sq.floor = vector(1, 0, 0);
+	else
+		sq.floor = vector(0, 1, 0);
 	sq.half_size = cross(lst->normal, sq.floor);
 	sq.center_to_ip = vsubstr(ip, lst->fig.sq.c);
 	cos1 = fabs(vcos(sq.half_size, sq.center_to_ip));

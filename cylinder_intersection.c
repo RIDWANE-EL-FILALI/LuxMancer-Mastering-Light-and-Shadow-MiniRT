@@ -36,8 +36,14 @@ t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
 				&& x2[0] > EPSILON) && (lst->fig.cy.dist2 >= 0
 				&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[1] > EPSILON))
 	{
-		dist = x2[0] < x2[1] ? lst->fig.cy.dist1 : lst->fig.cy.dist2;
-		x = x2[0] < x2[1] ? x2[0] : x2[1];
+		if (x2[0] < x2[1])
+			dist = lst->fig.cy.dist1;
+		else
+			dist = lst->fig.cy.dist2;
+		if (x2[0] < x2[1])
+			x = x2[0];
+		else
+			x = x2[1];
 	}
 	else if (lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
 														&& x2[0] > EPSILON)
@@ -90,7 +96,12 @@ double	caps_intersection(t_point o, t_point d, t_obj *lst)
 		ip2 = vadd(o, scal_x_vec(id2, d));
 		if ((id1 < INFINITY && distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
 				&& (id2 < INFINITY && distance(ip2, c2) <= lst->fig.cy.r))
-			return (id1 < id2 ? id1 : id2);
+			{
+				if (id1 < id2)
+					return (id1);
+				else
+					return (id2);
+			}
 		else if (id1 < INFINITY
 						&& distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
 			return (id1);

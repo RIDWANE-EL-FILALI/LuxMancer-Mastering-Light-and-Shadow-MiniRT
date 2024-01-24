@@ -53,7 +53,10 @@ void		parse_camera(t_mlx *mlx, t_scene *data, char **str)
 	elem->nv = normalize(parse_p3(str));
 	elem->fov = stoi(str);
 	in_range(elem->fov, 0, 180, "camera");
-	mlx->cam = begin ? begin : elem;
+	if (begin)
+		mlx->cam = begin;
+	else
+		mlx->cam = elem;
 }
 
 void		parse_light(t_scene **data, char **str)
@@ -82,5 +85,8 @@ void		parse_light(t_scene **data, char **str)
 	list->br = stof(str);
 	in_range(list->br, 0, 1, "light");
 	list->color = parse_color(str);
-	(*data)->l = begin ? begin : list;
+	if (begin)
+		(*data)->l = begin;
+	else
+		(*data)->l = list;
 }

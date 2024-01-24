@@ -18,13 +18,13 @@ void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
         parse_res(scene, &ret);
     else if (*ret == 'A' && *(ret++))
         parse_ambient_light(scene, &ret);
-	else if (*ret == 'c' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
+	else if (*ret == 'C' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
 		parse_camera(mlx, scene, &ret);
 	else if (*ret == 'c' && *(ret + 1) == 'y' && *(ret++) && *(ret++))
 		parse_cylinder(list, &ret);
 	else if (*ret == 'c' && *(ret + 1) == 'u' && *(ret++) && *(ret++))
 		parse_cube(list, &ret);
-	else if (*ret == 'l' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
+	else if (*ret == 'L' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
 		parse_light(&scene, &ret);
 	else if (*ret == 's' && *(ret + 1) == 'p' && *(ret++) && *(ret++))
 		parse_sphere(list, &ret);

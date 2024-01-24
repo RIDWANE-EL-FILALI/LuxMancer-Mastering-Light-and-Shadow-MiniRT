@@ -24,6 +24,7 @@ t_point		refract_ray(t_point d, t_point normal, t_obj *lst)
 	}
 	eta = etai / etat;
 	k = 1 - eta * eta * (1 - cosi * cosi);
-	return (k < 0 ? reflect_ray(scal_x_vec(-1, d), normal)
-		: vadd(scal_x_vec(eta, d), scal_x_vec(eta * cosi - sqrt(k), normal)));
+	if (k < 0)
+		return reflect_ray(scal_x_vec(-1, d), normal);
+    return vadd(scal_x_vec(eta, d), scal_x_vec(eta * cosi - sqrt(k), normal));
 }

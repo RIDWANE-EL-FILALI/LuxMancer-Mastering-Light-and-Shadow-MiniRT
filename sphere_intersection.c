@@ -33,13 +33,18 @@ double			sphere_intersection(t_point o, t_point d, t_obj *lst)
 	if (x[0] > EPSILON && x[0] < INFINITY)
 		closest = x[0];
 	if (x[1] > EPSILON && x[1] < INFINITY)
-		closest = x[1] < x[0] ? x[1] : closest;
+		if (x[1] < x[0])
+			closest =  x[1];
 	if (lst->texture != 4)
 		return (closest);
 	ip1 = vadd(o, scal_x_vec(x[0], d));
 	ip2 = vadd(o, scal_x_vec(x[1], d));
 	if (ip1.y >= lst->fig.sp.c.y && ip2.y >= lst->fig.sp.c.y)
-		return (x[0] < x[1] ? x[0] : x[1]);
+	{
+		if (x[0] < x[1])
+			return (x[0]);
+		return (x[1]);
+	}
 	else if (ip1.y >= lst->fig.sp.c.y)
 		return (x[0]);
 	else if (ip2.y >= lst->fig.sp.c.y)

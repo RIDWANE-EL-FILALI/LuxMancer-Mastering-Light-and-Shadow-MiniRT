@@ -1,6 +1,6 @@
 #include "main.h"
 
-void		try_all_intersections(t_v3 ray, t_obj *lst,
+void		try_all_intersections_manda(t_v3 ray, t_obj *lst,
 					t_obj *closest_figure, double *closest_intersection)
 {
 	double dist;
@@ -11,16 +11,8 @@ void		try_all_intersections(t_v3 ray, t_obj *lst,
 			dist = sphere_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == PL)
 			dist = plane_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == TR)
-			dist = triangle_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == SQ)
-			dist = square_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == CY)
 			dist = cylinder_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == CU)
-			dist = cube_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == PY)
-			dist = pyramid_intersection(ray.o, ray.d, lst);
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
 			*closest_figure = *lst;
@@ -48,15 +40,18 @@ int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	if (cl_fig.flag != -1)
 		inter.color = cl_fig.color;
 	else
-		inter.color = w->data.bgr;;
+		inter.color = w->data.bgr;
 	apply_texture(cl_fig.texture, &inter, w->lst);
 	compute_light(ray, &inter, w->data, w->lst);
 	if (cl_fig.flag != -1)
+	{
+		cl_fig.refr_idx = cl_fig.refr_idx;
 		r = cl_fig.refl_idx;
+	}
 	else
 	{
-		r = 0;
 		cl_fig.refr_idx = 0;
+		r = 0;
 	}
 	if (cl_fig.refr_idx > 0)
 		inter.color = trace_ray(inter.p,

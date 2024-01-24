@@ -32,7 +32,12 @@ t_point		look_at(t_point d, t_point cam_nv)
 	tmp = vector(0, 1, 0);
 	z_axis = cam_nv;
 	if (cam_nv.y == 1 || cam_nv.y == -1)
-		x_axis = cam_nv.y == 1 ? (t_point) {1, 0, 0} : (t_point) {-1, 0, 0};
+	{
+		if (cam_nv.y == 1)
+			x_axis = (t_point) {1, 0, 0};
+		else
+			x_axis = (t_point) {-1, 0, 0};
+	}
 	else
 		x_axis = cross(tmp, z_axis);
 	y_axis = cross(z_axis, x_axis);

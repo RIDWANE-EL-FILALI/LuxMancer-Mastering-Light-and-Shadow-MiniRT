@@ -71,8 +71,12 @@ void	calc_normal(t_point p, t_point d, t_point *normal, t_obj *l)
 			l->fig.sp.inside = 0;
 	}
 	else
-		*normal = vcos(d, l->normal) > 0 ? scal_x_vec(-1, l->normal)
-											: l->normal;
+	{
+		if (vcos(d, l->normal) > 0)
+			*normal = scal_x_vec(-1, l->normal);
+		else
+			*normal = l->normal;
+	}
 }
 
 int		is_lit(t_point o, t_point d, t_obj *lst)

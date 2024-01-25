@@ -96,7 +96,6 @@ void parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 		parse_sphere_manda(list, &ret);
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane(list, &ret);
-	parse2(list , ret);
 	*str = ret;
 }
 

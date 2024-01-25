@@ -17,7 +17,6 @@ t_point		set_camera(int n, t_rss rss, t_mlx mlx)
 	p.y = (1 - (2 * ((rss.j + y_offset) / rss.yres))) * correct_fov;
 	p.x *= -1;
 	p.z = 1;
-	normalize(p);
 	return (p);
 }
 

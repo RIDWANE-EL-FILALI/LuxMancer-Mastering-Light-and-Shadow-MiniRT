@@ -340,6 +340,7 @@ t_point vadd(t_point a, t_point b);
 t_point vsubstr(t_point a, t_point b);
 t_point vector(double x, double y, double z);
 double dot(t_point a, t_point b);
+void	parse_light_details(t_light *elem, char **str);
 
 //manda
 void parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);

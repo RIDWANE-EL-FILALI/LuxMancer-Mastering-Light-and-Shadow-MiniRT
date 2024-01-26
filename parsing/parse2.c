@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 15:46:58 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 16:04:56 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		parse_res(t_scene *data, char **str)
+void	parse_res(t_scene *data, char **str)
 {
 	if (data->res_init > 0)
-		error_message("Resolution (R) can only be declared once in the scene\n");
+		error_message("(R) can only be declared once in the scene\n");
 	else
 		data->res_init = 1;
 	next(str);
@@ -13,10 +25,10 @@ void		parse_res(t_scene *data, char **str)
 	in_range(data->yres, 1, INFINITY, "resolution");
 }
 
-void		parse_ambient_light(t_scene *data, char **str)
+void	parse_ambient_light(t_scene *data, char **str)
 {
 	if (data->al_init > 0)
-		error_message("Ambient lightning (A) can only be declared once in the scene\n");
+		error_message("(A) can only be declared once in the scene\n");
 	else
 		data->al_init = 1;
 	next(str);
@@ -25,11 +37,25 @@ void		parse_ambient_light(t_scene *data, char **str)
 	data->al_color = parse_color(str);
 }
 
-void		parse_camera(t_mlx *mlx, t_scene *data, char **str)
+void	parse_camera_details(t_cam *elem, char **str, t_scene *data)
+{
+	int	prev_idx;
+
+	prev_idx = elem->idx;
+	next(str);
+	elem->idx = prev_idx + 1;
+	data->cam_nb = elem->idx;
+	elem->o = parse_p3(str);
+	elem->nv = normalize(parse_p3(str));
+	elem->fov = stoi(str);
+	in_range(elem->fov, 0, 180, "camera");
+}
+
+void	parse_camera(t_mlx *mlx, t_scene *data, char **str)
 {
 	t_cam	*elem;
 	t_cam	*begin;
-	int			prev_idx;
+	int		prev_idx;
 
 	prev_idx = 0;
 	begin = mlx->cam;
@@ -46,24 +72,18 @@ void		parse_camera(t_mlx *mlx, t_scene *data, char **str)
 	}
 	else
 		mlx->cam = elem;
-	next(str);
-	elem->idx = prev_idx + 1;
-	data->cam_nb = elem->idx;
-	elem->o = parse_p3(str);
-	elem->nv = normalize(parse_p3(str));
-	elem->fov = stoi(str);
-	in_range(elem->fov, 0, 180, "camera");
+	parse_camera_details(elem, str, data);
 	if (begin)
 		mlx->cam = begin;
 	else
 		mlx->cam = elem;
 }
 
-void		parse_light(t_scene **data, char **str)
+void	parse_light(t_scene **data, char **str)
 {
 	t_light	*elem;
 	t_light	*list;
-	t_light *begin;
+	t_light	*begin;
 
 	begin = (*data)->l;
 	list = (*data)->l;
@@ -81,10 +101,7 @@ void		parse_light(t_scene **data, char **str)
 	else
 		list = elem;
 	next(str);
-	list->o = parse_p3(str);
-	list->br = stof(str);
-	in_range(list->br, 0, 1, "light");
-	list->color = parse_color(str);
+	parse_light_details(list, str);
 	if (begin)
 		(*data)->l = begin;
 	else

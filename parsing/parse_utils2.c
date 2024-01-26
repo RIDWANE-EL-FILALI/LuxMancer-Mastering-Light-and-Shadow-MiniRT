@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 15:39:56 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 16:05:03 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		ft_addnewlst_back(t_obj **alst)
+void	ft_addnewlst_back(t_obj **alst)
 {
 	t_obj	*begin;
 	t_obj	*elem;
@@ -9,8 +21,8 @@ void		ft_addnewlst_back(t_obj **alst)
 	begin = *alst;
 	list = *alst;
 	elem = malloc(sizeof(t_obj));
-    if (!elem)
-        error_message("Error malloc failure in new list\n");
+	if (!elem)
+		error_message("Error malloc failure in new list\n");
 	elem->next = NULL;
 	if (list)
 	{
@@ -23,9 +35,9 @@ void		ft_addnewlst_back(t_obj **alst)
 	*alst = begin;
 }
 
-int			stoi(char **str)
+int	stoi(char **str)
 {
-	int i;
+	int	i;
 	int	neg;
 
 	i = 0;
@@ -38,7 +50,7 @@ int			stoi(char **str)
 	return (i * neg);
 }
 
-void		in_range(double nb, double min, double max, char *function)
+void	in_range(double nb, double min, double max, char *function)
 {
 	char	message[100];
 
@@ -50,7 +62,7 @@ void		in_range(double nb, double min, double max, char *function)
 	}
 }
 
-int			parse_color(char **str)
+int	parse_color(char **str)
 {
 	int	r;
 	int	g;
@@ -70,4 +82,13 @@ int			parse_color(char **str)
 	b |= stoi(str);
 	in_range(b, 0, 255, "colors must be in range [0, 255],");
 	return (r | g | b);
+}
+
+void	parse_light_details(t_light *elem, char **str)
+{
+	next(str);
+	elem->o = parse_p3(str);
+	elem->br = stof(str);
+	in_range(elem->br, 0, 1, "light");
+	elem->color = parse_color(str);
 }

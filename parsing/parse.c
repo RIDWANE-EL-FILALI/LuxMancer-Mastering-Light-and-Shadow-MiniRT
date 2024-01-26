@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 15:41:36 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 15:45:13 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		parse2(t_obj **lst, char *str)
+void	parse2(t_obj **lst, char *str)
 {
 	if (*str == 'p' && *(str + 1) == 'y' && *(str++) && *(str++))
 		parse_pyramid(lst, &str);
@@ -8,16 +20,15 @@ void		parse2(t_obj **lst, char *str)
 		parse_triangle(lst, &str);
 }
 
-
-void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
+void	parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 {
-    char *ret;
+	char	*ret;
 
-    ret = *str;
-    if (*ret == 'R' && *(ret++))
-        parse_res(scene, &ret);
-    else if (*ret == 'A' && *(ret++))
-        parse_ambient_light(scene, &ret);
+	ret = *str;
+	if (*ret == 'R' && *(ret++))
+		parse_res(scene, &ret);
+	else if (*ret == 'A' && *(ret++))
+		parse_ambient_light(scene, &ret);
 	else if (*ret == 'C' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
 		parse_camera(mlx, scene, &ret);
 	else if (*ret == 'c' && *(ret + 1) == 'y' && *(ret++) && *(ret++))
@@ -32,45 +43,45 @@ void parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 		parse_square(list, &ret);
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane(list, &ret);
-	parse2(list , ret);
+	parse2(list, ret);
 	*str = ret;
 }
 
-void parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
+void	parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
 {
-    scene->res_init = 0;
-    scene->al_init = 0;
-    while (*str)
-    {
-        if (*str == '#')
-        {
-            while (*str && *str != '\n')
-                str++;
-        }
-        else
-            parse(mlx, scene, list, &str);
-        str++;
-    }
-    if (scene->res_init == 0 || scene->al_init == 0 || mlx->cam == NULL)
-        error_message("Error in the map : not enought elements to render a scene \n");
+	scene->res_init = 0;
+	scene->al_init = 0;
+	while (*str)
+	{
+		if (*str == '#')
+		{
+			while (*str && *str != '\n')
+				str++;
+		}
+		else
+			parse(mlx, scene, list, &str);
+		str++;
+	}
+	if (scene->res_init == 0 || scene->al_init == 0 || mlx->cam == NULL)
+		error_message("Error : not enought elements to render a scene\n");
 }
 
-void parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
+void	parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 {
-    char *str;
-    int fd;
+	char	*str;
+	int		fd;
 
-
-    *list = NULL;
-    scene->l = NULL;
-    mlx->cam = NULL;
-    write(1, "Iniciating parcing ...\n", 23);
-    str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    if (!str)
-        error_message("Error in allocating memory\n");
-    if ((fd = open(av[1], 0)) == -1)
-        error_message("Error openning the file given\n");
-    str = line(str, fd);
-    parse_elements(mlx, scene, list, str);
-    free(str);
+	*list = NULL;
+	scene->l = NULL;
+	mlx->cam = NULL;
+	write(1, "Iniciating parcing ...\n", 23);
+	str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!str)
+		error_message("Error in allocating memory\n");
+	fd = open(av[1], 0);
+	if (fd == -1)
+		error_message("Error openning the file given\n");
+	str = line(str, fd);
+	parse_elements(mlx, scene, list, str);
+	free(str);
 }

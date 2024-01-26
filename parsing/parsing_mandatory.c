@@ -1,49 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_mandatory.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 16:06:41 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 17:51:20 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		parse_camera_manda(t_mlx *mlx, t_scene *data, char **str)
+t_cam	*create_camera(t_mlx *mlx)
 {
 	t_cam	*elem;
-	t_cam	*begin;
-	int			prev_idx;
 
-	prev_idx = 0;
-	begin = mlx->cam;
 	elem = malloc(sizeof(t_cam));
 	if (!elem)
 		error_message("Error malloc failure in camera\n");
 	elem->next = NULL;
 	if (mlx->cam)
+		elem->idx = mlx->cam->idx + 1;
+	else
+		elem->idx = 1;
+	return (elem);
+}
+
+void	add_camera_to_list(t_cam *elem, t_mlx *mlx)
+{
+	t_cam	*begin;
+
+	begin = mlx->cam;
+	if (mlx->cam)
 	{
 		while (mlx->cam->next)
 			mlx->cam = mlx->cam->next;
-		prev_idx = mlx->cam->idx;
 		mlx->cam->next = elem;
 	}
 	else
 		mlx->cam = elem;
+	if (begin)
+		mlx->cam = begin;
+}
+
+void	parse_camera_manda(t_mlx *mlx, t_scene *data, char **str)
+{
+	t_cam	*elem;
+
+	elem = create_camera(mlx);
+	add_camera_to_list(elem, mlx);
 	next(str);
-	elem->idx = prev_idx + 1;
-    if (prev_idx >= 1)
-        error_message("Error only one camera allowed\n");
 	data->cam_nb = elem->idx;
 	elem->o = parse_p3(str);
 	elem->nv = normalize(parse_p3(str));
 	elem->fov = stoi(str);
 	in_range(elem->fov, 0, 180, "camera");
-	if (begin)
-		mlx->cam = begin;
-	else
-		mlx->cam = elem;
 }
 
-void		parse_light_manda(t_scene **data, char **str)
+void	parse_light_manda(t_scene **data, char **str)
 {
 	t_light	*elem;
 	t_light	*list;
-	t_light *begin;
-    int l;
+	t_light	*begin;
+	int		l;
 
-    l = 0;
+	l = 0;
 	begin = (*data)->l;
 	list = (*data)->l;
 	elem = malloc(sizeof(t_light));
@@ -68,18 +90,18 @@ void		parse_light_manda(t_scene **data, char **str)
 		(*data)->l = begin;
 	else
 		(*data)->l = list;
-    while (begin)
-    {
-        l++;
-        begin = begin->next;
-    }
-    if (l > 1)
-        error_message("Error only one light allowed\n");
+	while (begin)
+	{
+		l++;
+		begin = begin->next;
+	}
+	if (l > 1)
+		error_message("Error only one light allowed\n");
 }
 
-void parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
+void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 {
-    char *ret;
+    char	*ret;
 
     ret = *str;
     if (*ret == 'R' && *(ret++))
@@ -99,7 +121,7 @@ void parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 	*str = ret;
 }
 
-void parse_elements_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
+void	parse_elements_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
 {
     scene->res_init = 0;
     scene->al_init = 0;
@@ -118,10 +140,10 @@ void parse_elements_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
         error_message("Error in the map : not enought elements to render a scene \n");
 }
 
-void parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
+void	parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 {
-    char *str;
-    int fd;
+    char	*str;
+    int		fd;
 
 
     *list = NULL;

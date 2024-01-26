@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 16:05:40 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 16:06:11 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		parse_sphere(t_obj **elem, char **str)
+void	parse_sphere(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 
@@ -26,7 +38,7 @@ void		parse_sphere(t_obj **elem, char **str)
 	lst->color = parse_color(str);
 }
 
-void		parse_plane(t_obj **elem, char **str)
+void	parse_plane(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 
@@ -51,7 +63,7 @@ void		parse_plane(t_obj **elem, char **str)
 	lst->color = parse_color(str);
 }
 
-void		parse_square(t_obj **elem, char **str)
+void	parse_square(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 
@@ -78,7 +90,7 @@ void		parse_square(t_obj **elem, char **str)
 	lst->color = parse_color(str);
 }
 
-void		parse_triangle(t_obj **elem, char **str)
+void	parse_triangle(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 
@@ -107,7 +119,7 @@ void		parse_triangle(t_obj **elem, char **str)
 	lst->color = parse_color(str);
 }
 
-void		parse_cylinder(t_obj **elem, char **str)
+void	parse_cylinder(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 

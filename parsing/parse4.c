@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse4.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 16:06:21 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 16:06:27 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-void		parse_cube(t_obj **elem, char **str)
+void	parse_cube(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 
@@ -26,7 +38,7 @@ void		parse_cube(t_obj **elem, char **str)
 	lst->color = parse_color(str);
 }
 
-void		parse_pyramid(t_obj **elem, char **str)
+void	parse_pyramid(t_obj **elem, char **str)
 {
 	t_obj	*lst;
 

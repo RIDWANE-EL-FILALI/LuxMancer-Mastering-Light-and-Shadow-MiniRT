@@ -1,36 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 15:34:14 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/26 15:39:45 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-char *line(char *str, int fd)
+char	*line(char *str, int fd)
 {
-    char buff[BUFFER_SIZE + 1];
-    char *ptr;
-    int retrn;
+	char	buff[BUFFER_SIZE + 1];
+	char	*ptr;
+	int		retrn;
 
-    while ((retrn = read(fd, buff, BUFFER_SIZE)) > 0)
-    {
-        ptr = str;
-        buff[retrn] = '\0';
-        if (!(str = ft_strjoin(str, buff)))
-            return (NULL);
-        free(ptr);
-    }
-    return (str);
+	retrn = read(fd, buff, BUFFER_SIZE);
+	while (retrn > 0)
+	{
+		ptr = str;
+		buff[retrn] = '\0';
+		str = ft_strjoin(str, buff);
+		if (!str)
+			return (NULL);
+		free(ptr);
+		retrn = read(fd, buff, BUFFER_SIZE);
+	}
+	return (str);
 }
 
-void		next(char **str)
+void	next(char **str)
 {
 	while (**str == 32 || **str == 9)
 		(*str)++;
 }
 
-void		comma(char **str)
+void	comma(char **str)
 {
 	if (**str != ',')
 		error_message("parameters bad formatted\n");
 	(*str)++;
 }
 
-double		stof(char **str)
+double	stof(char **str)
 {
 	int		w;
 	double	d;
@@ -54,7 +69,7 @@ double		stof(char **str)
 	return (d * neg);
 }
 
-t_point		parse_p3(char **str)
+t_point	parse_p3(char **str)
 {
 	t_point	p;
 

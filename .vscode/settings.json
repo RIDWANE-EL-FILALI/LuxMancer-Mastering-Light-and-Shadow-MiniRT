@@ -5,6 +5,7 @@
         "libft.h": "c",
         "main.h": "c",
         "mlx.h": "c",
-        "parse.h": "c"
+        "parse.h": "c",
+        "sstream": "c"
     }
 }

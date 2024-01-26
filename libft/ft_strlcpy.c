@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:40:32 by mghalmi           #+#    #+#             */
-/*   Updated: 2022/10/18 11:48:53 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/26 15:33:25 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 			dest[i] = src[i];
 			i++;
 		}
-	dest[i] = '\0';
+		dest[i] = '\0';
 	}
 	return (ft_strlen(src));
 }

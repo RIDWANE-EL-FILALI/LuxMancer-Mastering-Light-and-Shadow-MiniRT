@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 13:17:41 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 13:19:06 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-int		cproduct(int color, double coef)
+int	cproduct(int color, double coef)
 {
-	int mask;
-	int r;
+	int	mask;
+	int	r;
 	int	g;
 	int	b;
 
@@ -20,12 +32,12 @@ int		cproduct(int color, double coef)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int		cadd(int color_a, int color_b)
+int	cadd(int color_a, int color_b)
 {
-	int mask;
+	int	mask;
 	int	r;
 	int	g;
-	int b;
+	int	b;
 
 	mask = 255;
 	r = ((color_a & (mask << 16)) + (color_b & (mask << 16))) & (mask << 16);
@@ -34,7 +46,7 @@ int		cadd(int color_a, int color_b)
 	return (r | g | b);
 }
 
-int		color_x_light(int color, double rgb[3])
+int	color_x_light(int color, double rgb[3])
 {
 	unsigned int	mask;
 	unsigned int	r;
@@ -56,13 +68,13 @@ int		color_x_light(int color, double rgb[3])
 	return ((r << 16) | (g << 8) | b);
 }
 
-int		color_difference(int color1, int color2)
+int	color_difference(int color1, int color2)
 {
-	int		mask;
-	int		r[2];
-	int		g[2];
-	int		b[2];
-	int		distance_exp2;
+	int	mask;
+	int	r[2];
+	int	g[2];
+	int	b[2];
+	int	distance_exp2;
 
 	mask = 255;
 	r[0] = (color1 & (mask << 16)) >> 16;
@@ -71,7 +83,7 @@ int		color_difference(int color1, int color2)
 	r[1] = (color2 & (mask << 16)) >> 16;
 	g[1] = (color2 & (mask << 8)) >> 8;
 	b[1] = color2 & mask;
-	distance_exp2 =
-	pow((r[1] - r[0]), 2) + pow((g[1] - g[0]), 2) + pow((b[1] - b[0]), 2);
+	distance_exp2 = pow((r[1] - r[0]), 2) + pow((g[1] - g[0]), 2) \
+				+ pow((b[1] - b[0]), 2);
 	return (distance_exp2 > 1000);
 }

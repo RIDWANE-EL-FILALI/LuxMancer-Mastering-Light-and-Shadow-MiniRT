@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 13:16:00 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 13:17:12 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-t_point		set_camera(int n, t_rss rss, t_mlx mlx)
+t_point	set_camera(int n, t_rss rss, t_mlx mlx)
 {
 	double	img_asp_ratio;
 	double	correct_fov;
@@ -12,15 +24,15 @@ t_point		set_camera(int n, t_rss rss, t_mlx mlx)
 	y_offset = ((n / 3) * 0.5);
 	img_asp_ratio = (double)(rss.xres) / (double)(rss.yres);
 	correct_fov = tan((mlx.cam->fov * M_PI / 180) / 2);
-	p.x =
-	((2 * ((rss.i + x_offset) / rss.xres)) - 1) * img_asp_ratio * correct_fov;
+	p.x = ((2 * ((rss.i + x_offset) / rss.xres)) - 1) \
+			* img_asp_ratio * correct_fov;
 	p.y = (1 - (2 * ((rss.j + y_offset) / rss.yres))) * correct_fov;
 	p.x *= -1;
 	p.z = 1;
 	return (p);
 }
 
-t_point		look_at(t_point d, t_point cam_nv)
+t_point	look_at(t_point d, t_point cam_nv)
 {
 	t_point	x_axis;
 	t_point	y_axis;
@@ -33,9 +45,9 @@ t_point		look_at(t_point d, t_point cam_nv)
 	if (cam_nv.y == 1 || cam_nv.y == -1)
 	{
 		if (cam_nv.y == 1)
-			x_axis = (t_point) {1, 0, 0};
+			x_axis = (t_point){1, 0, 0};
 		else
-			x_axis = (t_point) {-1, 0, 0};
+			x_axis = (t_point){-1, 0, 0};
 	}
 	else
 		x_axis = cross(tmp, z_axis);
@@ -46,7 +58,7 @@ t_point		look_at(t_point d, t_point cam_nv)
 	return (rotated);
 }
 
-int				calc_ray(int n, t_rss rss, t_wrapper *w)
+int	calc_ray(int n, t_rss rss, t_wrapper *w)
 {
 	t_point	d;
 	int		color;

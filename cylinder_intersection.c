@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_intersection.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 14:44:22 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 15:35:57 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
+int	solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
 {
 	t_point	v;
 	t_point	u;
@@ -10,7 +22,7 @@ int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
 
 	v = scal_x_vec(dot(d, lst->fig.cy.nv), lst->fig.cy.nv);
 	v = vsubstr(d, v);
-	u = scal_x_vec(dot(vsubstr(o, lst->fig.cy.c), lst->fig.cy.nv),
+	u = scal_x_vec(dot(vsubstr(o, lst->fig.cy.c), lst->fig.cy.nv), \
 													lst->fig.cy.nv);
 	u = vsubstr(vsubstr(o, lst->fig.cy.c), u);
 	a = dot(v, v);
@@ -27,25 +39,19 @@ int		solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst)
 	return (1);
 }
 
-t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
+t_point	calc_cy_normal(double x2[2], t_point o, t_point d, t_obj *lst)
 {
 	double	dist;
 	double	x;
 
-	if ((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
-				&& x2[0] > EPSILON) && (lst->fig.cy.dist2 >= 0
+	if ((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h \
+				&& x2[0] > EPSILON) && (lst->fig.cy.dist2 >= 0 \
 				&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[1] > EPSILON))
 	{
-		if (x2[0] < x2[1])
-			dist = lst->fig.cy.dist1;
-		else
-			dist = lst->fig.cy.dist2;
-		if (x2[0] < x2[1])
-			x = x2[0];
-		else
-			x = x2[1];
+		dist = check_dist(x2, lst);
+		x = check_x(x2);
 	}
-	else if (lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
+	else if (lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h \
 														&& x2[0] > EPSILON)
 	{
 		dist = lst->fig.cy.dist1;
@@ -57,7 +63,7 @@ t_point		calc_cy_normal(double x2[2], t_point  o, t_point d, t_obj  *lst)
 		x = x2[1];
 	}
 	x2[0] = x;
-	return (normalize(vsubstr(vsubstr(scal_x_vec(x, d),
+	return (normalize(vsubstr(vsubstr(scal_x_vec(x, d), \
 			scal_x_vec(dist, lst->fig.cy.nv)), vsubstr(lst->fig.cy.c, o))));
 }
 
@@ -67,12 +73,12 @@ double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst)
 
 	if (solve_cylinder(x2, o, d, lst) == 0)
 		return (INFINITY);
-	lst->fig.cy.dist1 = dot(lst->fig.cy.nv, vsubstr(scal_x_vec(x2[0], d),
+	lst->fig.cy.dist1 = dot(lst->fig.cy.nv, vsubstr(scal_x_vec(x2[0], d), \
 												vsubstr(lst->fig.cy.c, o)));
-	lst->fig.cy.dist2 = dot(lst->fig.cy.nv, vsubstr(scal_x_vec(x2[1], d),
+	lst->fig.cy.dist2 = dot(lst->fig.cy.nv, vsubstr(scal_x_vec(x2[1], d), \
 												vsubstr(lst->fig.cy.c, o)));
-	if (!((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h
-					&& x2[0] > EPSILON) || (lst->fig.cy.dist2 >= 0
+	if (!((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h \
+					&& x2[0] > EPSILON) || (lst->fig.cy.dist2 >= 0 \
 					&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[0] > EPSILON)))
 		return (INFINITY);
 	*normal = calc_cy_normal(x2, o, d, lst);
@@ -94,15 +100,10 @@ double	caps_intersection(t_point o, t_point d, t_obj *lst)
 	{
 		ip1 = vadd(o, scal_x_vec(id1, d));
 		ip2 = vadd(o, scal_x_vec(id2, d));
-		if ((id1 < INFINITY && distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
+		if ((id1 < INFINITY && distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r) \
 				&& (id2 < INFINITY && distance(ip2, c2) <= lst->fig.cy.r))
-			{
-				if (id1 < id2)
-					return (id1);
-				else
-					return (id2);
-			}
-		else if (id1 < INFINITY
+			select_closest(id1, id2);
+		else if (id1 < INFINITY \
 						&& distance(ip1, lst->fig.cy.c) <= lst->fig.cy.r)
 			return (id1);
 		else if (id2 < INFINITY && distance(ip2, c2) <= lst->fig.cy.r)
@@ -112,7 +113,7 @@ double	caps_intersection(t_point o, t_point d, t_obj *lst)
 	return (INFINITY);
 }
 
-double			cylinder_intersection(t_point o, t_point d, t_obj *lst)
+double	cylinder_intersection(t_point o, t_point d, t_obj *lst)
 {
 	double	cylinder_inter;
 	double	caps_inter;

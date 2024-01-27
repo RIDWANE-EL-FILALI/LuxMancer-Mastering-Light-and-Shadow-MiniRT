@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vectors3.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 12:55:26 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 12:57:00 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main.h"
 
-double  distance(t_point p1, t_point p2)
+double	distance(t_point p1, t_point p2)
 {
-    double d;
+	double	d;
 
 	d = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 	return (d);
 }
 
-t_point		x_axis_rotation(t_point vec, double angle)
+t_point	x_axis_rotation(t_point vec, double angle)
 {
 	t_point	row1;
 	t_point	row2;
@@ -26,7 +38,7 @@ t_point		x_axis_rotation(t_point vec, double angle)
 	return (rotated);
 }
 
-t_point		y_axis_rotation(t_point vec, double angle)
+t_point	y_axis_rotation(t_point vec, double angle)
 {
 	t_point	row1;
 	t_point	row2;
@@ -44,7 +56,7 @@ t_point		y_axis_rotation(t_point vec, double angle)
 	return (rotated);
 }
 
-t_point		z_axis_rotation(t_point vec, double angle)
+t_point	z_axis_rotation(t_point vec, double angle)
 {
 	t_point	row1;
 	t_point	row2;

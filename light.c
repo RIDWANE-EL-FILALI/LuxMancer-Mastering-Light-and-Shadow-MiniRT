@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 15:36:50 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 15:37:16 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	add_coeficient(double (*rgb)[3], double coef, int color)
@@ -41,7 +53,7 @@ void	compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst)
 	while (data.l)
 	{
 		direction = vsubstr(data.l->o, inter->p);
-		if (is_lit(inter->p, direction, lst)
+		if (is_lit(inter->p, direction, lst) \
 				&& dot(inter->normal, direction) > 0)
 		{
 			light = data.l->br * vcos(inter->normal, direction);
@@ -79,9 +91,9 @@ void	calc_normal(t_point p, t_point d, t_point *normal, t_obj *l)
 	}
 }
 
-int		is_lit(t_point o, t_point d, t_obj *lst)
+int	is_lit(t_point o, t_point d, t_obj *lst)
 {
-	double			in;
+	double	in;
 
 	while (lst)
 	{

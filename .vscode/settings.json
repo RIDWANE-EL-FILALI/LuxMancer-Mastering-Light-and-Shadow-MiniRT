@@ -6,6 +6,7 @@
         "main.h": "c",
         "mlx.h": "c",
         "parse.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "locale": "c"
     }
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp_creater.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 12:57:22 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/27 13:13:50 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-int			create_file(char *name, int i, int j)
+int	create_file(char *name, int i, int j)
 {
 	char	*bmpname;
 	int		path;
@@ -23,14 +35,12 @@ int			create_file(char *name, int i, int j)
 		bmpname[j++] = name[i++];
 	bmpname[j] = '\0';
 	ft_strcat(bmpname, ".bmp");
-	if (!((fd = open(bmpname, O_WRONLY | O_CREAT | O_TRUNC,
-													S_IRUSR | S_IWUSR)) > 0))
-		error_message("in do_the_bmp_thing() while creating file");
+	fd = check_fd(bmpname);
 	free(bmpname);
 	return (fd);
 }
 
-void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib)
+void	create_header(t_scene data, t_bmphead *header, t_dibhead *dib)
 {
 	header->type[0] = 0x42;
 	header->type[1] = 0x4D;
@@ -50,7 +60,7 @@ void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib)
 	dib->important_color = 0;
 }
 
-void		write_header(int fd, t_bmphead header, t_dibhead dib)
+void	write_header(int fd, t_bmphead header, t_dibhead dib)
 {
 	write(fd, &header.type, 2);
 	write(fd, &header.size, 4);
@@ -69,7 +79,7 @@ void		write_header(int fd, t_bmphead header, t_dibhead dib)
 	write(fd, &dib.important_color, 4);
 }
 
-void		write_file(int fd, t_scene data, t_mlx mlx)
+void	write_file(int fd, t_scene data, t_mlx mlx)
 {
 	char	*pixel_array;
 	int		image_size;
@@ -94,7 +104,7 @@ void		write_file(int fd, t_scene data, t_mlx mlx)
 	free(pixel_array);
 }
 
-void		save_bmp(t_mlx mlx, t_scene data, char *name)
+void	save_bmp(t_mlx mlx, t_scene data, char *name)
 {
 	t_bmphead	header;
 	t_dibhead	dib;

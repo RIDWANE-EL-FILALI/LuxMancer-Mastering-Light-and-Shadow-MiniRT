@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 18:18:51 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/28 11:44:04 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,5 +370,7 @@ void		parse_sphere_manda(t_obj **elem, char **str);
 void		parse_plane_manda(t_obj **elem, char **str);
 void		try_all_intersections_manda(t_v3 ray, t_obj *lst, \
 					t_obj *closest_figure, double *closest_intersection);
+void		set_reflection_params(t_obj *cl_fig, double *r);
+void		set_color(t_obj cl_fig, t_inter *inter, t_wrapper *w);
 
 #endif

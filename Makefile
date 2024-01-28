@@ -14,7 +14,7 @@ SRCB = bmp_creater.c   color.c   cylinder_intersection.c  cylinder_intersection_
 	libft/ft_strnstr.c      libft/ft_substr.c \
 	libft/ft_calloc.c       libft/ft_isascii.c      libft/ft_itoa.c         libft/ft_lstclear.c     libft/ft_lstlast.c      libft/ft_lstsize.c    \
 	libft/ft_memcpy.c       libft/ft_putchar_fd.c   libft/ft_putstr_fd.c    libft/ft_strdup.c       libft/ft_strlcat.c      libft/ft_strmapi.c  \
-	libft/ft_strrchr.c      libft/ft_tolower.c 	libft/ft_strcat.c libft/ft_strcmp.c libft/ft_strncpy.c bmp_creater_norm.c
+	libft/ft_strrchr.c      libft/ft_tolower.c 	libft/ft_strcat.c libft/ft_strcmp.c libft/ft_strncpy.c bmp_creater_norm.c ray_tracing_manda_norm.c
 
 SRC = main_mandatory.c \
     parsing/parsing_mandatory.c bmp_creater.c   color.c   cylinder_intersection.c  cylinder_intersection_norm.c multi_threading.c    ray_tracing.c   sample_pixel.c  supersampel.c \
@@ -29,7 +29,8 @@ SRC = main_mandatory.c \
 	libft/ft_strnstr.c      libft/ft_substr.c \
 	libft/ft_calloc.c       libft/ft_isascii.c      libft/ft_itoa.c         libft/ft_lstclear.c     libft/ft_lstlast.c      libft/ft_lstsize.c    \
 	libft/ft_memcpy.c       libft/ft_putchar_fd.c   libft/ft_putstr_fd.c    libft/ft_strdup.c       libft/ft_strlcat.c      libft/ft_strmapi.c  \
-	libft/ft_strrchr.c      libft/ft_tolower.c 	libft/ft_strcat.c libft/ft_strcmp.c libft/ft_strncpy.c parsing/parsing_mandatory_norm.c bmp_creater_norm.c
+	libft/ft_strrchr.c      libft/ft_tolower.c 	libft/ft_strcat.c libft/ft_strcmp.c libft/ft_strncpy.c parsing/parsing_mandatory_norm.c bmp_creater_norm.c \
+	ray_tracing_manda_norm.c
 
 
 OBJ = ${SRC:.c=.o}

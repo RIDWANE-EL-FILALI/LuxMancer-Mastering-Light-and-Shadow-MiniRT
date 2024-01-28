@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/28 11:43:13 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 11:43:50 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	checkerboard(t_inter *inter)
@@ -18,8 +30,8 @@ int	checkerboard(t_inter *inter)
 	val.z = (int)coords.z % 2;
 	party_mix = ((int)val.x ^ (int)val.y) ^ (int)val.z;
 	if (party_mix)
-		return black;
-    return white;
+		return (black);
+	return (white);
 }
 
 t_point	sinwave(t_inter *inter, t_obj *lst)
@@ -32,14 +44,14 @@ t_point	sinwave(t_inter *inter, t_obj *lst)
 	return (x_axis_rotation(inter->normal, sinn));
 }
 
-void		define_color(double r, double g, double b, double color[3])
+void	define_color(double r, double g, double b, double color[3])
 {
 	color[0] = r;
 	color[1] = g;
 	color[2] = b;
 }
 
-int				rainbow(t_inter *inter)
+int	rainbow(t_inter *inter)
 {
 	double	color[3];
 	double	w;
@@ -65,7 +77,7 @@ int				rainbow(t_inter *inter)
 	return (((int)color[0] << 16) | ((int)color[1] << 8) | (int)color[2]);
 }
 
-void		apply_texture(int texture, t_inter *inter, t_obj *lst)
+void	apply_texture(int texture, t_inter *inter, t_obj *lst)
 {
 	if (texture == 1)
 		inter->color = checkerboard(inter);

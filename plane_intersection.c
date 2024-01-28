@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane_intersection.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/28 10:50:12 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 10:51:48 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-double			solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
+double	solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
 {
 	double	x;
 	double	denom;
@@ -14,12 +26,12 @@ double			solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
 	return (INFINITY);
 }
 
-double			plane_intersection(t_point o, t_point d, t_obj *lst)
+double	plane_intersection(t_point o, t_point d, t_obj *lst)
 {
 	return (solve_plane(o, d, lst->fig.pl.p, lst->normal));
 }
 
-double			square_intersection(t_point o, t_point d, t_obj *lst)
+double	square_intersection(t_point o, t_point d, t_obj *lst)
 {
 	t_point	ip;
 	t_sq	sq;
@@ -44,7 +56,7 @@ double			square_intersection(t_point o, t_point d, t_obj *lst)
 	return (INFINITY);
 }
 
-int		p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)
+int	p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)
 {
 	t_point	v1;
 	t_point	v2;
@@ -58,7 +70,7 @@ int		p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)
 	return (0);
 }
 
-double			triangle_intersection(t_point o, t_point d, t_obj *lst)
+double	triangle_intersection(t_point o, t_point d, t_obj *lst)
 {
 	double	id;
 	t_point	ip;

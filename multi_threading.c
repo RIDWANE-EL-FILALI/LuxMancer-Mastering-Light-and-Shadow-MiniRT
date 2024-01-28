@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multi_threading.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/28 10:48:32 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 10:49:03 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-void		*render_thread(void *ptr)
+void	*render_thread(void *ptr)
 {
 	t_wrapper	*w;
 
@@ -13,7 +25,7 @@ void		*render_thread(void *ptr)
 	return (NULL);
 }
 
-void			rendering(t_wrapper wrapper[NUM_THREADS])
+void	rendering(t_wrapper wrapper[NUM_THREADS])
 {
 	pthread_t	threads[NUM_THREADS];
 	int			i;
@@ -29,9 +41,7 @@ void			rendering(t_wrapper wrapper[NUM_THREADS])
 		pthread_join(threads[i++], NULL);
 }
 
-
-
-void			wrapp_data(t_mlx mlx, t_scene data, t_obj *lst,t_wrapper *wrapper)
+void	wrapp_data(t_mlx mlx, t_scene data, t_obj *lst, t_wrapper *wrapper)
 {
 	int	i;
 

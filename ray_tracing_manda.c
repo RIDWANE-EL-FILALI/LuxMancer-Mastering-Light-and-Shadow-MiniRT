@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_tracing_manda.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/28 10:52:02 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 11:35:30 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-void		try_all_intersections_manda(t_v3 ray, t_obj *lst,
+void	try_all_intersections_manda(t_v3 ray, t_obj *lst,
 					t_obj *closest_figure, double *closest_intersection)
 {
-	double dist;
+	double	dist;
 
 	while (lst)
 	{
@@ -22,10 +34,10 @@ void		try_all_intersections_manda(t_v3 ray, t_obj *lst,
 	}
 }
 
-int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
+int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 {
 	t_v3		ray;
-	t_obj	cl_fig;
+	t_obj		cl_fig;
 	t_inter		inter;
 	double		closest_intersection;
 	double		r;
@@ -34,25 +46,13 @@ int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	ray.d = d;
 	closest_intersection = INFINITY;
 	cl_fig.flag = -1;
-	try_all_intersections(ray, w->lst, &cl_fig, &closest_intersection);
+	try_all_intersections_manda(ray, w->lst, &cl_fig, &closest_intersection);
 	inter.p = vadd(o, scal_x_vec(closest_intersection, d));
 	calc_normal(inter.p, d, &(inter.normal), &cl_fig);
-	if (cl_fig.flag != -1)
-		inter.color = cl_fig.color;
-	else
-		inter.color = w->data.bgr;
+	set_color(cl_fig, &inter, w);
 	apply_texture(cl_fig.texture, &inter, w->lst);
 	compute_light(ray, &inter, w->data, w->lst);
-	if (cl_fig.flag != -1)
-	{
-		cl_fig.refr_idx = cl_fig.refr_idx;
-		r = cl_fig.refl_idx;
-	}
-	else
-	{
-		cl_fig.refr_idx = 0;
-		r = 0;
-	}
+	set_reflection_params(&cl_fig, &r);
 	if (cl_fig.refr_idx > 0)
 		inter.color = trace_ray(inter.p,
 				refract_ray(d, inter.normal, &cl_fig), w, depth);
@@ -62,7 +62,7 @@ int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	return (cadd(cproduct(inter.color, 1 - r), cproduct(inter.ref_color, r)));
 }
 
-int			average(int color1, int color2)
+int	average(int color1, int color2)
 {
 	int		average[3];
 	int		mask;
@@ -87,7 +87,7 @@ int			average(int color1, int color2)
 	return ((average[0] << 16) | (average[1] << 8) | average[2]);
 }
 
-int			average_supersampled_color(int *color)
+int	average_supersampled_color(int *color)
 {
 	int		ss_color[3];
 	int		mask;

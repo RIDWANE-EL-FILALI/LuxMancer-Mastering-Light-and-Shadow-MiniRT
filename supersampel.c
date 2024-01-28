@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   supersampel.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/28 11:42:44 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 11:43:03 by mghalmi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int	supersample_first_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -22,7 +34,7 @@ int			supersample_first_corner(int *color, int center, t_rss rss, t_wrapper *w)
 	return (col);
 }
 
-int			supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int	supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -44,7 +56,7 @@ int			supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
 	return (col);
 }
 
-int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int	supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -66,7 +78,7 @@ int			supersample_third_corner(int *color, int center, t_rss rss, t_wrapper *w)
 	return (col);
 }
 
-int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w)
+int	supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w)
 {
 	t_rss	tmp;
 	int		*subsquare;
@@ -88,7 +100,7 @@ int			supersample_fourth_corner(int *color, int center, t_rss rss, t_wrapper *w)
 	return (col);
 }
 
-int					supersample(int *color, t_rss rss, t_wrapper *w)
+int	supersample(int *color, t_rss rss, t_wrapper *w)
 {
 	int		center;
 	int		n;

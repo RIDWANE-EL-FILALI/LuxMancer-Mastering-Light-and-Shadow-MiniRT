@@ -6,11 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:06:41 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 12:50:54 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/28 17:26:18 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main.h"
+#include "main.h"
 
 t_cam	*create_camera(t_mlx *mlx)
 {

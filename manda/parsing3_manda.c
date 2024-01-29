@@ -6,11 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 12:52:46 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 12:53:28 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/28 17:26:21 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main.h"
+#include "main.h"
 
 void	parse_cylinder_manda(t_obj **elem, char **str)
 {

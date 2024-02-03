@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:36:32 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:37:19 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 16:24:12 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ void	try_all_intersections(t_v3 ray, t_obj *lst,
 			dist = plane_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == TR)
 			dist = triangle_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == SQ)
-			dist = square_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == CY)
 			dist = cylinder_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == CU)
-			dist = cube_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == PY)
-			dist = pyramid_intersection(ray.o, ray.d, lst);
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
 			*closest_figure = *lst;
@@ -58,7 +52,7 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	inter.p = vadd(o, scal_x_vec(closest_intersection, d));
 	calc_normal(inter.p, d, &(inter.normal), &cl_fig);
 	set_color(cl_fig, &inter, w);
-	apply_texture(cl_fig.texture, &inter, w->lst);
+	apply_texture(cl_fig.texture, &inter);
 	compute_light(ray, &inter, w->data, w->lst);
 	set_reflection_params(&cl_fig, &r);
 	if (cl_fig.refr_idx > 0)

@@ -16,20 +16,19 @@ LIBFT = libft/ft_atoi.c         libft/ft_isalnum.c      libft/ft_isdigit.c      
 
 VECT = vectors/vectors.c  vectors/vectors2.c vectors/vectors3.c
 
-SRC = manda/bmp_creater.c                                   manda/ray_tracing_manda_norm.c \
-	  manda/bmp_creater_norm.c           manda/light.c                      manda/parsing3_manda.c             manda/reflect_and_refract.c \
+SRC =  manda/ray_tracing_manda_norm.c         manda/light.c                      manda/parsing3_manda.c    \
 	  manda/camera.c                               manda/parsing_mandatory.c          manda/sample_pixel.c \
 	  manda/color.c                      manda/main_mandatory.c             manda/parsing_mandatory_norm.c     manda/sphere_intersection.c \
 	  manda/cylinder_intersection.c      manda/mlx_things.c                 manda/plane_intersection.c         manda/supersampel.c \
-	  manda/cylinder_intersection_norm.c manda/multi_threading.c            manda/ray_tracing_manda.c          manda/textures.c \
+	  manda/cylinder_intersection_norm.c manda/multi_threading.c            manda/ray_tracing_manda.c         \
 	  parsing/parse2.c       parsing/parse3.c        parsing/parse_utils.c  parsing/parse_utils2.c
 
 SRCB =  bonus/bmp_creater.c                bonus/cylinder_intersection_norm.c bonus/plane_intersection.c         bonus/sphere_intersection.c \
 		bonus/bmp_creater_norm.c           bonus/light.c                      bonus/ray_tracing.c                bonus/supersampel.c \
 		bonus/camera.c                     bonus/main.c                       bonus/textures.c bonus/color.c \
-		bonus/cube_pyramid_intersection.c  bonus/mlx_things.c                 bonus/reflect_and_refract.c \
+		bonus/mlx_things.c                 bonus/reflect_and_refract.c \
 		bonus/cylinder_intersection.c      bonus/multi_threading.c            bonus/sample_pixel.c  bonus/ray_tracing_norm.c\
-		parsing/parse.c        parsing/parse2.c       parsing/parse3.c       parsing/parse4.c       parsing/parse_utils.c  parsing/parse_utils2.c
+		parsing/parse.c        parsing/parse2.c       parsing/parse3.c          parsing/parse_utils.c  parsing/parse_utils2.c
 
 LIBFTOBJ = $(LIBFT:.c=.o)
 
@@ -41,11 +40,11 @@ OBJVECT = ${VECT:.c=.o}
 
 all : $(NAME)
 
-$(NAME) : ${LIBFTOBJ} $(OBJ) $(OBJVECT) manda/main.h  manda/objects.h manda/ggl_mlx_define.h libft/libft.h
+$(NAME) : ${LIBFTOBJ} $(OBJ) $(OBJVECT) manda/main.h libft/libft.h
 	@ar rc $(NAME) $(OBJ) ${LIBFTOBJ} $(OBJVECT)
 	@${CC} ${FRAMEWORK} ${CFLAGS} ${NAME} -o MiniRT
 
-bonus : ${LIBFTOBJ} $(OBJB) $(OBJVECT) bonus/main.h  bonus/objects.h bonus/ggl_mlx_define.h libft/libft.h
+bonus : ${LIBFTOBJ} $(OBJB) $(OBJVECT) bonus/main.h  bonus/objects.h libft/libft.h
 	@ar rc $(NAME) $(OBJB) ${LIBFTOBJ} $(OBJVECT) $(OBJPARS)
 	@${CC} ${FRAMEWORK} ${CFLAGS} ${NAME} -o MiniRT_bonus
 

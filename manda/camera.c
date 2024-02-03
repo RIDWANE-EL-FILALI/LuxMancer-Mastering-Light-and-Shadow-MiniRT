@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 13:16:00 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 13:17:12 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 16:36:23 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int	calc_ray(int n, t_rss rss, t_wrapper *w)
 
 	d = set_camera(n, rss, w->mlx);
 	d = look_at(d, w->mlx.cam->nv);
-	color = trace_ray(w->mlx.cam->o, d, w, REFLECTION_LIMIT);
+	color = trace_ray(w->mlx.cam->o, d, w);
 	return (color);
 }

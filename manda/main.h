@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 17:51:35 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:37:28 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "../libft/libft.h"
-# include "ggl_mlx_define.h"
 # define BUFFER_SIZE 32
 # define RESET_COLOR     "\033[0m"
 # define BLACK_COLOR     "\033[0;30m"
@@ -33,16 +32,18 @@
 # define WHITE_COLOR     "\033[0;37m"
 # define SP 0
 # define PL 1
-# define SQ 2
 # define TR 3
 # define CY 4
-# define CU 5
-# define PY 6
+# define ESC_KEY 53
+# define STRUCTURENOTIFYMASK 131072
+# define KEYPRESSMASK 1
+# define KEYPRESS 2
+# define DESTROYNOTIFY 17
+
 
 # ifndef NUM_THREADS
 #  define NUM_THREADS 4
 # endif
-# define REFLECTION_LIMIT 3
 # define EPSILON 0.00001
 
 typedef struct s_point
@@ -63,12 +64,6 @@ typedef struct s_plane
 {
 	t_point	p;
 }			t_plane;
-
-typedef struct s_square
-{
-	t_point	c;
-	double	side;
-}			t_square;
 
 typedef struct s_cylinder
 {
@@ -91,7 +86,6 @@ union	u_figures
 {
 	t_sphere	sp;
 	t_plane		pl;
-	t_square	sq;
 	t_cylinder	cy;
 	t_triangle	tr;
 };
@@ -150,10 +144,6 @@ typedef struct s_obj
 	int				flag;
 	union u_figures	fig;
 	int				color;
-	int				specular;
-	double			refl_idx;
-	double			refr_idx;
-	int				texture;
 	t_point			normal;
 	double			wavelength;
 	struct s_obj	*next;
@@ -187,14 +177,6 @@ typedef struct s_inter
 	t_point	ref_vec;
 }			t_inter;
 
-typedef struct s_bmp_header
-{
-	char			type[2];
-	unsigned int	size;
-	unsigned int	reserved;
-	unsigned int	offset;
-}					t_bmphead;
-
 typedef struct s_dib_header
 {
 	unsigned int	size;
@@ -217,32 +199,8 @@ typedef struct s_thread
 	int				i;
 }					t_thread;
 
-typedef struct s_sq
-{
-	t_point			half_size;
-	t_point			floor;
-	t_point			center_to_ip;
-}					t_sq;
-
-typedef struct s_cube
-{
-	t_obj			sq;
-	t_point			center;
-	t_point			normal[6];
-}					t_cube;
-
-typedef struct s_pyramid
-{
-	t_obj	sq;
-	t_obj	tr;
-	t_point	tr_center;
-	t_point	normal[5];
-	t_point	corner[4];
-}			t_pyr;
 
 int			create_file(char *name, int i, int j);
-void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib);
-void		write_header(int fd, t_bmphead header, t_dibhead dib);
 void		write_file(int fd, t_scene data, t_mlx mlx);
 void		save_bmp(t_mlx mlx, t_scene data, char *name);
 t_point		set_camera(int n, t_rss rss, t_mlx mlx);
@@ -257,7 +215,6 @@ t_point		calc_cy_normal(double x2[2], t_point o, t_point d, t_obj *lst);
 double		cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst);
 double		cylinder_intersection(t_point o, t_point d, t_obj *lst);
 void		add_coeficient(double (*rgb)[3], double coef, int color);
-double		calc_specular(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
 void		compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
 void		calc_normal(t_point p, t_point d, t_point *normal, t_obj *l);
 int			is_lit(t_point o, t_point d, t_obj *lst);
@@ -273,16 +230,13 @@ void		wrapp_data(t_mlx mlx, t_scene data, t_obj *lst, t_wrapper *wrapper);
 double		solve_plane(t_point o, t_point d, \
 				t_point plane_p, t_point plane_nv);
 double		plane_intersection(t_point o, t_point d, t_obj *lst);
-double		square_intersection(t_point o, t_point d, t_obj *lst);
 int			p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip);
 double		triangle_intersection(t_point o, t_point d, t_obj *lst);
 void		try_all_intersections(t_v3 ray, t_obj *lst, \
 					t_obj *closest_figure, double *closest_intersection);
-int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth);
+int			trace_ray(t_point o, t_point d, t_wrapper *w);
 int			average(int color1, int color2);
 int			average_supersampled_color(int *color);
-t_point		reflect_ray(t_point ray, t_point normal);
-t_point		refract_ray(t_point d, t_point normal, t_obj *lst);
 int			*sample_pixel(int *edge_color, int last[2], \
 					t_rss rss, t_wrapper *w);
 int			*sample_first_column(int *edge_color, int last[2], \
@@ -294,10 +248,8 @@ int			*sample_centered_pixel(int *edge_color, int last[2], \
 void		solve_sphere(double x[2], t_point o, t_point d, t_obj *lst);
 double		sphere_intersection(t_point o, t_point d, t_obj *lst);
 int			checkerboard(t_inter *inter);
-t_point		sinwave(t_inter *inter, t_obj *lst);
 void		define_color(double r, double g, double b, double color[3]);
-int			rainbow(t_inter *inter);
-void		apply_texture(int texture, t_inter *inter, t_obj *lst);
+void		apply_texture(int texture, t_inter *inter);
 int			supersample_first_corner(int *color, int center, \
 					t_rss rss, t_wrapper *w);
 int			supersample_second_corner(int *color, int center, \
@@ -317,7 +269,6 @@ double		stof(char **str);
 void		comma(char **str);
 void		next(char **str);
 char		*line(char *str, int fd);
-void		parse2(t_obj **lst, char *str);
 void		parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
 void		parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str);
 void		parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);

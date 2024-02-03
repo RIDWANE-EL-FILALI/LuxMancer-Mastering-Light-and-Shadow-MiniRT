@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:40:38 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:42:23 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 15:50:05 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ double	sphere_intersection(t_point o, t_point d, t_obj *lst)
 {
 	double	closest;
 	double	x[2];
-	t_point	ip1;
-	t_point	ip2;
 
 	closest = INFINITY;
 	solve_sphere(x, o, d, lst);
@@ -54,15 +52,5 @@ double	sphere_intersection(t_point o, t_point d, t_obj *lst)
 	if (x[1] > EPSILON && x[1] < INFINITY)
 		if (x[1] < x[0])
 			closest = x[1];
-	if (lst->texture != 4)
-		return (closest);
-	ip1 = vadd(o, scal_x_vec(x[0], d));
-	ip2 = vadd(o, scal_x_vec(x[1], d));
-	if (ip1.y >= lst->fig.sp.c.y && ip2.y >= lst->fig.sp.c.y)
-		return (return_x(x));
-	else if (ip1.y >= lst->fig.sp.c.y)
-		return (x[0]);
-	else if (ip2.y >= lst->fig.sp.c.y)
-		return (x[1]);
-	return (INFINITY);
+	return (closest);
 }

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:52:02 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:35:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 16:35:56 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ void	try_all_intersections_manda(t_v3 ray, t_obj *lst,
 	}
 }
 
-int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
+int	trace_ray(t_point o, t_point d, t_wrapper *w)
 {
 	t_v3		ray;
 	t_obj		cl_fig;
 	t_inter		inter;
 	double		closest_intersection;
-	double		r;
 
 	ray.o = o;
 	ray.d = d;
@@ -50,16 +49,8 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	inter.p = vadd(o, scal_x_vec(closest_intersection, d));
 	calc_normal(inter.p, d, &(inter.normal), &cl_fig);
 	set_color(cl_fig, &inter, w);
-	apply_texture(cl_fig.texture, &inter, w->lst);
 	compute_light(ray, &inter, w->data, w->lst);
-	set_reflection_params(&cl_fig, &r);
-	if (cl_fig.refr_idx > 0)
-		inter.color = trace_ray(inter.p,
-				refract_ray(d, inter.normal, &cl_fig), w, depth);
-	if (r > 0 && depth > 0)
-		inter.ref_color = trace_ray(inter.p,
-				reflect_ray(scal_x_vec(-1, d), inter.normal), w, depth - 1);
-	return (cadd(cproduct(inter.color, 1 - r), cproduct(inter.ref_color, r)));
+	return (inter.color);
 }
 
 int	average(int color1, int color2)

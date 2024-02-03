@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 14:44:22 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 15:35:57 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:58:12 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ double	cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst)
 												vsubstr(lst->fig.cy.c, o)));
 	if (!((lst->fig.cy.dist1 >= 0 && lst->fig.cy.dist1 <= lst->fig.cy.h \
 					&& x2[0] > EPSILON) || (lst->fig.cy.dist2 >= 0 \
-					&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[0] > EPSILON)))
+					&& lst->fig.cy.dist2 <= lst->fig.cy.h && x2[1] > EPSILON)))
 		return (INFINITY);
 	*normal = calc_cy_normal(x2, o, d, lst);
 	return (x2[0]);
@@ -120,10 +120,7 @@ double	cylinder_intersection(t_point o, t_point d, t_obj *lst)
 	t_point	cy_normal;
 
 	cylinder_inter = cy_intersection(o, d, &cy_normal, lst);
-	if (lst->texture == 4)
-		caps_inter = INFINITY;
-	else
-		caps_inter = caps_intersection(o, d, lst);
+	caps_inter = caps_intersection(o, d, lst);
 	if (cylinder_inter < INFINITY || caps_inter < INFINITY)
 	{
 		if (cylinder_inter < caps_inter)

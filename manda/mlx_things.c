@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:46:41 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 10:48:22 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:06:33 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,43 +44,15 @@ void	message_prompt(int ac)
 					"\nScene successfully rendered with %d threads, " \
 					RESET_COLOR, t);
 		printf("press ESC at any momnet to close the program.\n");
-		printf("If the scene has several cameras, ");
-		printf("press space to change between them\n\n");
-	}
-	else
-	{
-		printf(GREEN_COLOR "\nScene successfully saved to BMP\n" RESET_COLOR);
-		printf("The file has been saved into the \"images\" directory\n\n");
-		exit(EXIT_SUCCESS);
 	}
 }
 
-int	next_cam(int keycode, t_mlx *mlx)
+int	close_it(int keycode, t_mlx *mlx)
 {
+	(void)mlx;
 	if (keycode == ESC_KEY)
 		exit(0);
-	if (keycode != SP_KEY)
-		return (0);
-	if (mlx->cam->next)
-	{
-		mlx->cam = mlx->cam->next;
-		mlx_put_image_to_window(\
-				mlx->mlx, mlx->win, mlx->cam->img_ptr, 0, 0);
-	}
-	else
-	{
-		mlx->cam = mlx->begin;
-		mlx_put_image_to_window(\
-				mlx->mlx, mlx->win, mlx->cam->img_ptr, 0, 0);
-	}
-	return (1);
-}
-
-int	close_program(void *param)
-{
-	param = (void *)param;
-	exit(EXIT_SUCCESS);
-	return (1);
+	return (0);
 }
 
 void	graphic_loop(t_mlx mlx, t_scene data)
@@ -88,7 +60,6 @@ void	graphic_loop(t_mlx mlx, t_scene data)
 	mlx.win = mlx_new_window(mlx.mlx, data.xres, data.yres, \
 															"miniRT");
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.cam->img_ptr, 0, 0);
-	mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_program, 0);
-	mlx_hook(mlx.win, KEYPRESS, KEYPRESSMASK, next_cam, &mlx);
+	mlx_hook(mlx.win, KEYPRESS, KEYPRESSMASK, close_it, &mlx);
 	mlx_loop(mlx.mlx);
 }

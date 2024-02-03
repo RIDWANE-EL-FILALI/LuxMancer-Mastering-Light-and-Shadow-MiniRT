@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:46:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/26 16:04:56 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:04:37 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	parse_res(t_scene *data, char **str)
 	in_range(data->xres, 1, INFINITY, "resolution");
 	data->yres = stoi(str);
 	in_range(data->yres, 1, INFINITY, "resolution");
+	if (**str != '\n' && **str)
+		error_message("map error\n");
 }
 
 void	parse_ambient_light(t_scene *data, char **str)
@@ -35,6 +37,8 @@ void	parse_ambient_light(t_scene *data, char **str)
 	data->ambient_light = stof(str);
 	in_range(data->ambient_light, 0, 1, "ambient lightning");
 	data->al_color = parse_color(str);
+	if (**str != '\n' && **str)
+		error_message("map error\n");
 }
 
 void	parse_camera_details(t_cam *elem, char **str, t_scene *data)
@@ -49,6 +53,8 @@ void	parse_camera_details(t_cam *elem, char **str, t_scene *data)
 	elem->nv = normalize(parse_p3(str));
 	elem->fov = stoi(str);
 	in_range(elem->fov, 0, 180, "camera");
+	if (**str != '\n' && **str)
+		error_message("map error\n");
 }
 
 void	parse_camera(t_mlx *mlx, t_scene *data, char **str)
@@ -77,6 +83,8 @@ void	parse_camera(t_mlx *mlx, t_scene *data, char **str)
 		mlx->cam = begin;
 	else
 		mlx->cam = elem;
+	if (**str != '\n' && **str)
+		error_message("map error\n");
 }
 
 void	parse_light(t_scene **data, char **str)
@@ -106,4 +114,6 @@ void	parse_light(t_scene **data, char **str)
 		(*data)->l = begin;
 	else
 		(*data)->l = list;
+	if (**str != '\n' && **str)
+		error_message("map error\n");
 }

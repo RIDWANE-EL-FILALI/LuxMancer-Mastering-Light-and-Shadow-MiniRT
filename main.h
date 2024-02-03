@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:44:04 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 16:42:39 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft/libft.h"
-# include "ggl_mlx_define.h"
 # define BUFFER_SIZE 32
 # define RESET_COLOR     "\033[0m"
 # define BLACK_COLOR     "\033[0;30m"
@@ -33,11 +32,14 @@
 # define WHITE_COLOR     "\033[0;37m"
 # define SP 0
 # define PL 1
-# define SQ 2
 # define TR 3
 # define CY 4
-# define CU 5
-# define PY 6
+#  define SP_KEY 49
+# define ESC_KEY 53
+# define STRUCTURENOTIFYMASK 131072
+# define KEYPRESSMASK 1
+# define KEYPRESS 2
+# define DESTROYNOTIFY 17
 
 # ifndef NUM_THREADS
 #  define NUM_THREADS 4
@@ -64,12 +66,6 @@ typedef struct s_plane
 	t_point	p;
 }			t_plane;
 
-typedef struct s_square
-{
-	t_point	c;
-	double	side;
-}			t_square;
-
 typedef struct s_cylinder
 {
 	t_point	c;
@@ -91,7 +87,6 @@ union	u_figures
 {
 	t_sphere	sp;
 	t_plane		pl;
-	t_square	sq;
 	t_cylinder	cy;
 	t_triangle	tr;
 };
@@ -217,29 +212,6 @@ typedef struct s_thread
 	int				i;
 }					t_thread;
 
-typedef struct s_sq
-{
-	t_point			half_size;
-	t_point			floor;
-	t_point			center_to_ip;
-}					t_sq;
-
-typedef struct s_cube
-{
-	t_obj			sq;
-	t_point			center;
-	t_point			normal[6];
-}					t_cube;
-
-typedef struct s_pyramid
-{
-	t_obj	sq;
-	t_obj	tr;
-	t_point	tr_center;
-	t_point	normal[5];
-	t_point	corner[4];
-}			t_pyr;
-
 int			create_file(char *name, int i, int j);
 void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib);
 void		write_header(int fd, t_bmphead header, t_dibhead dib);
@@ -252,10 +224,6 @@ int			cproduct(int color, double coef);
 int			cadd(int color_a, int color_b);
 int			color_x_light(int color, double rgb[3]);
 int			color_difference(int color1, int color2);
-void		init_cube(t_cube *c, t_obj *lst);
-double		cube_intersection(t_point o, t_point d, t_obj *lst);
-void		init_pyramid(t_pyr *p, t_obj *lst);
-double		pyramid_intersection(t_point o, t_point d, t_obj *lst);
 int			solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst);
 t_point		calc_cy_normal(double x2[2], t_point o, t_point d, t_obj *lst);
 double		cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst);
@@ -278,7 +246,6 @@ void		wrapp_data(t_mlx mlx, t_scene data, t_obj *lst, t_wrapper *wrapper);
 double		solve_plane(t_point o, t_point d, \
 				t_point plane_p, t_point plane_nv);
 double		plane_intersection(t_point o, t_point d, t_obj *lst);
-double		square_intersection(t_point o, t_point d, t_obj *lst);
 int			p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip);
 double		triangle_intersection(t_point o, t_point d, t_obj *lst);
 void		try_all_intersections(t_v3 ray, t_obj *lst, \
@@ -299,10 +266,8 @@ int			*sample_centered_pixel(int *edge_color, int last[2], \
 void		solve_sphere(double x[2], t_point o, t_point d, t_obj *lst);
 double		sphere_intersection(t_point o, t_point d, t_obj *lst);
 int			checkerboard(t_inter *inter);
-t_point		sinwave(t_inter *inter, t_obj *lst);
 void		define_color(double r, double g, double b, double color[3]);
-int			rainbow(t_inter *inter);
-void		apply_texture(int texture, t_inter *inter, t_obj *lst);
+void		apply_texture(int texture, t_inter *inter);
 int			supersample_first_corner(int *color, int center, \
 					t_rss rss, t_wrapper *w);
 int			supersample_second_corner(int *color, int center, \
@@ -313,11 +278,8 @@ int			supersample_fourth_corner(int *color, int center, \
 					t_rss rss, t_wrapper *w);
 int			supersample(int *color, t_rss rss, t_wrapper *w);
 void		graphic_loop(t_mlx mlx, t_scene data);
-void		parse_pyramid(t_obj **elem, char **str);
-void		parse_cube(t_obj **elem, char **str);
 void		parse_cylinder(t_obj **elem, char **str);
 void		parse_triangle(t_obj **elem, char **str);
-void		parse_square(t_obj **elem, char **str);
 void		parse_plane(t_obj **elem, char **str);
 void		parse_sphere(t_obj **elem, char **str);
 int			parse_color(char **str);
@@ -329,7 +291,6 @@ double		stof(char **str);
 void		comma(char **str);
 void		next(char **str);
 char		*line(char *str, int fd);
-void		parse2(t_obj **lst, char *str);
 void		parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
 void		parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str);
 void		parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);

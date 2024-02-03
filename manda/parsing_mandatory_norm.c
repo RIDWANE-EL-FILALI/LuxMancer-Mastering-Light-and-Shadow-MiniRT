@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 12:50:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 17:50:58 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:02:11 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 		parse_sphere_manda(list, &ret);
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane_manda(list, &ret);
+	else
+		error_message("error map\n");
 	*str = ret;
 }
 

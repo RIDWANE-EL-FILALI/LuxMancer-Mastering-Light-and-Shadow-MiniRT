@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:37:28 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 17:42:28 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:10:34 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,10 @@ int	main(int ac, char **av)
 
 	if (ac < 2 || ac > 3)
 		error_message("To run ./miniRT scenes/The scene \n");
-	if (ac == 3 && ft_strcmp(av[2], "--save"))
-		error_message("invalid arguments\n");
 	parse_scene_manda(&mlx, &scene, &lst, av);
 	init_mlx(&mlx, &scene);
 	wrapp_data(mlx, scene, lst, wrapper);
 	rendering(wrapper);
-	if (ac == 3)
-		save_bmp(mlx, scene, av[1]);
 	message_prompt(ac);
 	graphic_loop(mlx, scene);
 	return (0);

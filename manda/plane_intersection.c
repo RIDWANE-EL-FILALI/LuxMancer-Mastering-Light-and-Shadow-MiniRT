@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:50:12 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 10:51:48 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/03 15:48:08 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,6 @@ double	solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
 double	plane_intersection(t_point o, t_point d, t_obj *lst)
 {
 	return (solve_plane(o, d, lst->fig.pl.p, lst->normal));
-}
-
-double	square_intersection(t_point o, t_point d, t_obj *lst)
-{
-	t_point	ip;
-	t_sq	sq;
-	double	id;
-	double	cos1;
-	double	limit;
-
-	id = solve_plane(o, d, lst->fig.sq.c, lst->normal);
-	ip = vadd(o, scal_x_vec(id, d));
-	if (fabs(lst->normal.y) == 1)
-		sq.floor = vector(1, 0, 0);
-	else
-		sq.floor = vector(0, 1, 0);
-	sq.half_size = cross(lst->normal, sq.floor);
-	sq.center_to_ip = vsubstr(ip, lst->fig.sq.c);
-	cos1 = fabs(vcos(sq.half_size, sq.center_to_ip));
-	if (cos1 < sqrt(2) / 2)
-		cos1 = cos(M_PI_2 - acos(cos1));
-	limit = (lst->fig.sq.side / 2) / cos1;
-	if (mod(sq.center_to_ip) <= limit)
-		return (id);
-	return (INFINITY);
 }
 
 int	p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip)

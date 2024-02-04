@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:34:14 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/26 15:39:45 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/04 18:07:16 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*line(char *str, int fd)
 		free(ptr);
 		retrn = read(fd, buff, BUFFER_SIZE);
 	}
+	str = ft_strjoin(str, "\n");
 	return (str);
 }
 

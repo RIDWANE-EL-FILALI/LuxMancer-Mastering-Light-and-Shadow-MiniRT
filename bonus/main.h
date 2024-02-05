@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/03 16:39:08 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/05 13:45:58 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@
 # define PY 6
 # define SP_KEY 49
 # define ESC_KEY 53
+# define ESC_KEY 53
+# define STRUCTURENOTIFYMASK 131072
+# define KEYPRESSMASK 1
+# define KEYPRESS 2
+# define DESTROYNOTIFY 17
 
 # ifndef NUM_THREADS
 #  define NUM_THREADS 4

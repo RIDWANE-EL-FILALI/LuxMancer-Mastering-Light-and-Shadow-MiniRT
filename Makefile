@@ -2,7 +2,7 @@ NAME = MiniRT.a
 CFLAGS = -Wall -Wextra -Werror
 FRAMEWORK = -lmlx -framework appkit -framework openGl
 RM = rm -f
-SRCB =  color.c   cylinder_intersection.c  cylinder_intersection_norm.c   main.c   multi_threading.c     ray_tracing.c     sample_pixel.c  supersampel.c \
+SRCB =  color.c   cylinder_intersection.c  cylinder_intersection_norm.c   main_bonus.c   multi_threading.c     ray_tracing.c     sample_pixel.c  supersampel.c \
 	camera.c  light.c   mlx_things.c    plane_intersection.c        reflect_and_refract.c       sphere_intersection.c  textures.c \
 	parsing/parse.c        parsing/parse2.c       parsing/parse3.c      parsing/parse_utils.c  parsing/parse_utils2.c \
 	vectors/vectors.c  vectors/vectors2.c vectors/vectors3.c \
@@ -33,7 +33,7 @@ SRC = main_mandatory.c \
 	ray_tracing_manda_norm.c
 
 
-OBJ = ${SRC:.c=.o}
+OBJ = ${SRC:.c=.o} 
 
 OBJB = $(SRCB:.c=.o)
 

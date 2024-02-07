@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:41:36 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 17:43:49 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 18:00:56 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 {
 	char	*str;
 	int		fd;
+	char	*new_line;
 
 	*list = NULL;
 	scene->l = NULL;
@@ -73,8 +74,10 @@ void	parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 	if (fd == -1)
 		error_message("Error openning the file given\n");
 	str = line(str, fd);
-	parse_elements(mlx, scene, list, str);
+	new_line = ft_strjoin(str, "\n");
 	free(str);
+	parse_elements(mlx, scene, list, new_line);
+	free(new_line);
 }
 
 void	parse_res(t_scene *data, char **str)

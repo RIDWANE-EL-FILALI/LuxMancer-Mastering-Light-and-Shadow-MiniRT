@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 16:46:46 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 19:59:38 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ typedef struct s_pyramid
 	t_point	corner[4];
 }			t_pyr;
 
-
 t_point		set_camera(int n, t_rss rss, t_mlx mlx);
 t_point		look_at(t_point d, t_point cam_nv);
 int			calc_ray(int n, t_rss rss, t_wrapper *w);
@@ -359,7 +358,8 @@ void		try_all_intersections_manda(t_v3 ray, t_obj *lst, \
 void		set_reflection_params(t_obj *cl_fig, double *r);
 void		set_color(t_obj cl_fig, t_inter *inter, t_wrapper *w);
 void		parse_res(t_scene *data, char **str);
-void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
-void	choise(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
+void		parse_mandatory(t_mlx *mlx, t_scene *scene, \
+					t_obj **list, char **str);
+void		choise(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
 
 #endif

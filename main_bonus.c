@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:59:03 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 16:37:17 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 20:11:22 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int	calc_pixel_color(int *edge_color, int last[2], t_wrapper *w)
 	return (average_supersampled_color(color));
 }
 
+void	last_thread_print_last(t_wrapper **w)
+{
+	if ((*w)->tid == NUM_THREADS - 1)
+	{
+		printf("\rRendering scene... (cam %d/%d) [100%%]\n", \
+				(*w)->mlx.cam->idx, (*w)->data.cam_nb);
+		return ;
+	}
+}
+
 void	render_scene(t_wrapper **w)
 {
 	int	*edge_color;
@@ -57,14 +67,9 @@ void	render_scene(t_wrapper **w)
 			(*w)->mlx.cam->px_img[(*w)->j * (*w)->data.xres \
 				+ (*w)->i++] = color;
 		}
-		if ((*w)->tid == NUM_THREADS - 1)
-			printf("\rRendering scene... (cam %d/%d) [%d%%]", \
-				(*w)->mlx.cam->idx, (*w)->data.cam_nb, 100 * ((*w)->j % n) / n);
 		(*w)->j++;
 	}
-	if ((*w)->tid == NUM_THREADS - 1)
-		printf("\rRendering scene... (cam %d/%d) [100%%]\n", \
-				(*w)->mlx.cam->idx, (*w)->data.cam_nb);
+	last_thread_print_last(w);
 	free(edge_color);
 }
 

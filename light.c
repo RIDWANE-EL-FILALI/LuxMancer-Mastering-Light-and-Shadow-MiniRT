@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:36:50 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/03 17:35:04 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:37:16 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ void	add_coeficient(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / 255;
 }
 
+double	calc_specular(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst)
+{
+	double	light;
+	t_point	direction;
+	t_point	p_to_cam;
+	t_point	reflected;
+
+	direction = vsubstr(data.l->o, inter->p);
+	p_to_cam = vsubstr(ray.o, inter->p);
+	reflected = reflect_ray(direction, inter->normal);
+	if (dot(reflected, p_to_cam) > 0)
+		light = data.l->br * pow(vcos(reflected, p_to_cam), lst->specular);
+	else
+		light = 0;
+	return (light);
+}
+
 void	compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst)
 {
 	double			light;
@@ -31,7 +48,6 @@ void	compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst)
 	t_point			direction;
 
 	light = 0.0;
-	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	add_coeficient(&rgb, data.ambient_light, data.al_color);
 	while (data.l)
@@ -41,6 +57,11 @@ void	compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst)
 				&& dot(inter->normal, direction) > 0)
 		{
 			light = data.l->br * vcos(inter->normal, direction);
+			add_coeficient(&rgb, light, data.l->color);
+		}
+		if (lst->specular)
+		{
+			light = calc_specular(ray, inter, data, lst);
 			add_coeficient(&rgb, light, data.l->color);
 		}
 		data.l = data.l->next;
@@ -80,8 +101,16 @@ int	is_lit(t_point o, t_point d, t_obj *lst)
 			in = sphere_intersection(o, d, lst);
 		else if (lst->flag == PL)
 			in = plane_intersection(o, d, lst);
+		else if (lst->flag == TR)
+			in = triangle_intersection(o, d, lst);
+		else if (lst->flag == SQ)
+			in = square_intersection(o, d, lst);
 		else if (lst->flag == CY)
 			in = cylinder_intersection(o, d, lst);
+		else if (lst->flag == CU)
+			in = cube_intersection(o, d, lst);
+		else if (lst->flag == PY)
+			in = pyramid_intersection(o, d, lst);
 		if (in > EPSILON && in < 1)
 			return (0);
 		lst = lst->next;

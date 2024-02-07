@@ -6,11 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 12:50:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/04 18:08:20 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:49:43 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "../main.h"
 
 void	parse_light_manda(t_scene **data, char **str)
 {
@@ -57,7 +57,7 @@ void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane_manda(list, &ret);
 	if (*ret != '\n')
-		error_message("error map\n");
+		error_message("param nor valide\n");
 	*str = ret;
 }
 
@@ -66,6 +66,7 @@ void	parse_elements_manda(t_mlx *mlx, t_scene *scene, \
 {
 	scene->res_init = 0;
 	scene->al_init = 0;
+	scene->c_init = 0;
 	while (*str)
 	{
 		if (*str == '#')

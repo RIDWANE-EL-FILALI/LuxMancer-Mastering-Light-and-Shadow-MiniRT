@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:52:02 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/03 16:35:56 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:54:19 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	try_all_intersections_manda(t_v3 ray, t_obj *lst,
 	}
 }
 
-int	trace_ray(t_point o, t_point d, t_wrapper *w)
+int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 {
 	t_v3		ray;
 	t_obj		cl_fig;

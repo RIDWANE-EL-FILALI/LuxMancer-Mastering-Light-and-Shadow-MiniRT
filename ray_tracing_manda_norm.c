@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane_intersection.c                               :+:      :+:    :+:   */
+/*   ray_tracing_manda_norm.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/28 10:50:12 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/04 18:05:04 by mghalmi          ###   ########.fr       */
+/*   Created: 2024/01/28 11:22:48 by mghalmi           #+#    #+#             */
+/*   Updated: 2024/01/28 11:37:07 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-double	solve_plane(t_point o, t_point d, t_point plane_p, t_point plane_nv)
+void	set_reflection_params(t_obj *cl_fig, double *r)
 {
-	double	x;
-	double	denom;
-
-	denom = dot(plane_nv, d);
-	if (denom == 0)
-		return (INFINITY);
-	x = (dot(plane_nv, vsubstr(plane_p, o))) / denom;
-	if (x > 0)
-		return (x);
-	return (INFINITY);
+	if (cl_fig->flag != -1)
+	{
+		cl_fig->refr_idx = cl_fig->refr_idx;
+		*r = cl_fig->refl_idx;
+	}
+	else
+	{
+		cl_fig->refr_idx = 0;
+		*r = 0;
+	}
 }
 
-double	plane_intersection(t_point o, t_point d, t_obj *lst)
+void	set_color(t_obj cl_fig, t_inter *inter, t_wrapper *w)
 {
-	return (solve_plane(o, d, lst->fig.pl.p, lst->normal));
+	if (cl_fig.flag != -1)
+		inter->color = cl_fig.color;
+	else
+		inter->color = w->data.bgr;
 }

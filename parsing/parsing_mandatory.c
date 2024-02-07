@@ -6,11 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:06:41 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/04 18:13:15 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:45:58 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "../main.h"
 
 t_cam	*create_camera(t_mlx *mlx)
 {
@@ -47,11 +47,11 @@ void	add_camera_to_list(t_cam *elem, t_mlx *mlx)
 void	parse_camera_manda(t_mlx *mlx, t_scene *data, char **str)
 {
 	t_cam	*elem;
-	static int a = 0;
 
-	a++;
-	if (a > 1)
-		error_message("please enter just one camera\n");
+	if (data->c_init > 0)
+		error_message("(C) can only be declared once in the scene\n");
+	else
+		data->c_init = 1;
 	elem = create_camera(mlx);
 	add_camera_to_list(elem, mlx);
 	next(str);

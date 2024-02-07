@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:05:40 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/03 15:49:15 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/01/26 16:06:11 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	parse_sphere(t_obj **elem, char **str)
 	lst->refr_idx = stof(str);
 	in_range(lst->refr_idx, 0, INFINITY, "sphere");
 	lst->texture = stoi(str);
+	in_range(lst->texture, 0, 5, "sphere");
+	if (lst->texture == 2)
+		lst->wavelength = stof(str);
 	lst->color = parse_color(str);
 }
 
@@ -54,6 +57,36 @@ void	parse_plane(t_obj **elem, char **str)
 	lst->refr_idx = stof(str);
 	in_range(lst->refr_idx, 0, INFINITY, "plane");
 	lst->texture = stoi(str);
+	in_range(lst->texture, 0, 5, "plane");
+	if (lst->texture == 2)
+		lst->wavelength = stof(str);
+	lst->color = parse_color(str);
+}
+
+void	parse_square(t_obj **elem, char **str)
+{
+	t_obj	*lst;
+
+	ft_addnewlst_back(elem);
+	lst = *elem;
+	while (lst->next)
+		lst = lst->next;
+	lst->flag = SQ;
+	next(str);
+	lst->fig.sq.c = parse_p3(str);
+	lst->normal = normalize(parse_p3(str));
+	lst->fig.sq.side = stof(str);
+	in_range(lst->fig.sq.side, 0, INFINITY, "square");
+	lst->specular = stoi(str);
+	in_range(lst->specular, 0, INFINITY, "square");
+	lst->refl_idx = stof(str);
+	in_range(lst->refl_idx, 0, 1, "square");
+	lst->refr_idx = stof(str);
+	in_range(lst->refr_idx, 0, INFINITY, "square");
+	lst->texture = stoi(str);
+	in_range(lst->texture, 0, 5, "square");
+	if (lst->texture == 2)
+		lst->wavelength = stof(str);
 	lst->color = parse_color(str);
 }
 
@@ -80,6 +113,9 @@ void	parse_triangle(t_obj **elem, char **str)
 	lst->refr_idx = stof(str);
 	in_range(lst->refr_idx, 0, INFINITY, "triangle");
 	lst->texture = stoi(str);
+	in_range(lst->texture, 0, 5, "triangle");
+	if (lst->texture == 2)
+		lst->wavelength = stof(str);
 	lst->color = parse_color(str);
 }
 
@@ -106,5 +142,8 @@ void	parse_cylinder(t_obj **elem, char **str)
 	lst->refr_idx = stof(str);
 	in_range(lst->refr_idx, 0, INFINITY, "cylinder");
 	lst->texture = stoi(str);
+	in_range(lst->texture, 0, 5, "cylinder");
+	if (lst->texture == 2)
+		lst->wavelength = stof(str);
 	lst->color = parse_color(str);
 }

@@ -6,24 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:46:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 13:45:15 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:53:02 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../main.h"
-
-void	parse_res(t_scene *data, char **str)
-{
-	if (data->res_init > 0)
-		error_message("(R) can only be declared once in the scene\n");
-	else
-		data->res_init = 1;
-	next(str);
-	data->xres = stoi(str);
-	in_range(data->xres, 1, INFINITY, "resolution");
-	data->yres = stoi(str);
-	in_range(data->yres, 1, INFINITY, "resolution");
-}
 
 void	parse_ambient_light_manda(t_scene *data, char **str)
 {

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 13:39:53 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:46:46 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@
 # define WHITE_COLOR     "\033[0;37m"
 # define SP 0
 # define PL 1
-# define SQ 2
 # define TR 3
 # define CY 4
-# define CU 5
-# define PY 6
 
 # ifndef NUM_THREADS
 #  define NUM_THREADS 4
@@ -241,11 +238,7 @@ typedef struct s_pyramid
 	t_point	corner[4];
 }			t_pyr;
 
-int			create_file(char *name, int i, int j);
-void		create_header(t_scene data, t_bmphead *header, t_dibhead *dib);
-void		write_header(int fd, t_bmphead header, t_dibhead dib);
-void		write_file(int fd, t_scene data, t_mlx mlx);
-void		save_bmp(t_mlx mlx, t_scene data, char *name);
+
 t_point		set_camera(int n, t_rss rss, t_mlx mlx);
 t_point		look_at(t_point d, t_point cam_nv);
 int			calc_ray(int n, t_rss rss, t_wrapper *w);
@@ -253,10 +246,6 @@ int			cproduct(int color, double coef);
 int			cadd(int color_a, int color_b);
 int			color_x_light(int color, double rgb[3]);
 int			color_difference(int color1, int color2);
-void		init_cube(t_cube *c, t_obj *lst);
-double		cube_intersection(t_point o, t_point d, t_obj *lst);
-void		init_pyramid(t_pyr *p, t_obj *lst);
-double		pyramid_intersection(t_point o, t_point d, t_obj *lst);
 int			solve_cylinder(double x[2], t_point o, t_point d, t_obj *lst);
 t_point		calc_cy_normal(double x2[2], t_point o, t_point d, t_obj *lst);
 double		cy_intersection(t_point o, t_point d, t_point *normal, t_obj *lst);
@@ -268,7 +257,7 @@ void		compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
 void		calc_normal(t_point p, t_point d, t_point *normal, t_obj *l);
 int			is_lit(t_point o, t_point d, t_obj *lst);
 void		error_message(char *str);
-void		render_scene(t_wrapper *w);
+void		render_scene(t_wrapper **w);
 void		init_mlx(t_mlx *mlx, t_scene *data);
 void		message_prompt(int ac);
 int			next_cam(int keycode, t_mlx *mlx);
@@ -279,7 +268,6 @@ void		wrapp_data(t_mlx mlx, t_scene data, t_obj *lst, t_wrapper *wrapper);
 double		solve_plane(t_point o, t_point d, \
 				t_point plane_p, t_point plane_nv);
 double		plane_intersection(t_point o, t_point d, t_obj *lst);
-double		square_intersection(t_point o, t_point d, t_obj *lst);
 int			p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip);
 double		triangle_intersection(t_point o, t_point d, t_obj *lst);
 void		try_all_intersections(t_v3 ray, t_obj *lst, \
@@ -318,7 +306,6 @@ void		parse_pyramid(t_obj **elem, char **str);
 void		parse_cube(t_obj **elem, char **str);
 void		parse_cylinder(t_obj **elem, char **str);
 void		parse_triangle(t_obj **elem, char **str);
-void		parse_square(t_obj **elem, char **str);
 void		parse_plane(t_obj **elem, char **str);
 void		parse_sphere(t_obj **elem, char **str);
 int			parse_color(char **str);
@@ -330,8 +317,6 @@ double		stof(char **str);
 void		comma(char **str);
 void		next(char **str);
 char		*line(char *str, int fd);
-void		parse2(t_obj **lst, char *str);
-void		parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
 void		parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str);
 void		parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av);
 void		parse_res(t_scene *data, char **str);
@@ -373,5 +358,8 @@ void		try_all_intersections_manda(t_v3 ray, t_obj *lst, \
 					t_obj *closest_figure, double *closest_intersection);
 void		set_reflection_params(t_obj *cl_fig, double *r);
 void		set_color(t_obj cl_fig, t_inter *inter, t_wrapper *w);
+void		parse_res(t_scene *data, char **str);
+void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
+void	choise(t_mlx *mlx, t_scene *scene, t_obj **list, char **str);
 
 #endif

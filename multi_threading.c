@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:48:32 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 10:49:03 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 15:48:54 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*render_thread(void *ptr)
 	w = (t_wrapper *)ptr;
 	while (w->mlx.cam)
 	{
-		render_scene(w);
+		render_scene(&w);
 		w->mlx.cam = w->mlx.cam->next;
 	}
 	return (NULL);

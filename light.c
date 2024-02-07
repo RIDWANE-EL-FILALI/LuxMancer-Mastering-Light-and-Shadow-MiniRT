@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:36:50 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/27 15:37:16 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:46:08 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,8 @@ int	is_lit(t_point o, t_point d, t_obj *lst)
 			in = plane_intersection(o, d, lst);
 		else if (lst->flag == TR)
 			in = triangle_intersection(o, d, lst);
-		else if (lst->flag == SQ)
-			in = square_intersection(o, d, lst);
 		else if (lst->flag == CY)
 			in = cylinder_intersection(o, d, lst);
-		else if (lst->flag == CU)
-			in = cube_intersection(o, d, lst);
-		else if (lst->flag == PY)
-			in = pyramid_intersection(o, d, lst);
 		if (in > EPSILON && in < 1)
 			return (0);
 		lst = lst->next;

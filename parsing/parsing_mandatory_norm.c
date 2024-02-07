@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 12:50:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 13:49:43 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 15:09:52 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	parse_mandatory(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane_manda(list, &ret);
 	if (*ret != '\n')
-		error_message("param nor valide\n");
+		error_message("param not valide\n");
 	*str = ret;
 }
 
@@ -85,6 +85,7 @@ void	parse_elements_manda(t_mlx *mlx, t_scene *scene, \
 void	parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 {
 	char	*str;
+	char	*new_line;
 	int		fd;
 
 	*list = NULL;
@@ -98,6 +99,8 @@ void	parse_scene_manda(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 	if (fd == -1)
 		error_message("Error openning the file given\n");
 	str = line(str, fd);
-	parse_elements_manda(mlx, scene, list, str);
+	new_line = ft_strjoin(str, "\n");
 	free(str);
+	parse_elements_manda(mlx, scene, list, new_line);
+	free(new_line);
 }

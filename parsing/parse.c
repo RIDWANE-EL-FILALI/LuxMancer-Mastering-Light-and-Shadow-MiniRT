@@ -6,21 +6,13 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:41:36 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/26 15:45:13 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:43:49 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../main.h"
 
-void	parse2(t_obj **lst, char *str)
-{
-	if (*str == 'p' && *(str + 1) == 'y' && *(str++) && *(str++))
-		parse_pyramid(lst, &str);
-	else if (*str == 't' && *(str + 1) == 'r' && *(str++) && *(str++))
-		parse_triangle(lst, &str);
-}
-
-void	parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
+void	choise(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 {
 	char	*ret;
 
@@ -33,17 +25,16 @@ void	parse(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 		parse_camera(mlx, scene, &ret);
 	else if (*ret == 'c' && *(ret + 1) == 'y' && *(ret++) && *(ret++))
 		parse_cylinder(list, &ret);
-	else if (*ret == 'c' && *(ret + 1) == 'u' && *(ret++) && *(ret++))
-		parse_cube(list, &ret);
 	else if (*ret == 'L' && (*(ret + 1) == 32 || *(ret + 1) == 9) && *(ret++))
 		parse_light(&scene, &ret);
 	else if (*ret == 's' && *(ret + 1) == 'p' && *(ret++) && *(ret++))
 		parse_sphere(list, &ret);
-	else if (*ret == 's' && *(ret + 1) == 'q' && *(ret++) && *(ret++))
-		parse_square(list, &ret);
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane(list, &ret);
-	parse2(list, ret);
+	else if (*ret == 't' && *(ret + 1) == 'r' && *(ret++) && *(ret++))
+		parse_triangle(list, &ret);
+	if (*ret != '\n')
+		error_message("invalide param\n");
 	*str = ret;
 }
 
@@ -59,7 +50,7 @@ void	parse_elements(t_mlx *mlx, t_scene *scene, t_obj **list, char *str)
 				str++;
 		}
 		else
-			parse(mlx, scene, list, &str);
+			choise(mlx, scene, list, &str);
 		str++;
 	}
 	if (scene->res_init == 0 || scene->al_init == 0 || mlx->cam == NULL)
@@ -84,4 +75,17 @@ void	parse_scene(t_mlx *mlx, t_scene *scene, t_obj **list, char **av)
 	str = line(str, fd);
 	parse_elements(mlx, scene, list, str);
 	free(str);
+}
+
+void	parse_res(t_scene *data, char **str)
+{
+	if (data->res_init > 0)
+		error_message("(R) can only be declared once in the scene\n");
+	else
+		data->res_init = 1;
+	next(str);
+	data->xres = stoi(str);
+	in_range(data->xres, 1, INFINITY, "resolution");
+	data->yres = stoi(str);
+	in_range(data->yres, 1, INFINITY, "resolution");
 }

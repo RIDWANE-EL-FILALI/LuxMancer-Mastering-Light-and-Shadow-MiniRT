@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:37:28 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 13:36:47 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:31:43 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,33 +36,36 @@ int	calc_pixel_color(int *edge_color, int last[2], t_wrapper *w)
 	return (average_supersampled_color(color));
 }
 
-void	render_scene(t_wrapper *w)
+void	render_scene(t_wrapper **w)
 {
 	int	*edge_color;
 	int	last[3];
 	int	color;
 	int	n;
 
-	edge_color = malloc(sizeof(int) * (w->data.xres + 2));
-	n = w->data.yres / NUM_THREADS;
-	w->j = n * w->tid;
-	while (w->j < (n * (w->tid + 1)))
+	edge_color = malloc(sizeof(int) * ((*w)->data.xres + 2));
+	if (!edge_color)
+		error_message("malloc error");
+	n = (*w)->data.yres / NUM_THREADS;
+	(*w)->j = n * (*w)->tid;
+	while ((*w)->j < (n * ((*w)->tid + 1)))
 	{
-		w->i = 0;
-		while (w->i < w->data.xres)
+		(*w)->i = 0;
+		while ((*w)->i < (*w)->data.xres)
 		{
-			color = calc_pixel_color(edge_color, last, w);
-			w->mlx.cam->px_img[w->j * w->data.xres + w->i] = color;
-			w->i++;
+			color = calc_pixel_color(edge_color, last, (*w));
+			(*w)->mlx.cam->px_img[(*w)->j * (*w)->data.xres \
+				+ (*w)->i++] = color;
 		}
-		if (w->tid == NUM_THREADS - 1)
+		if ((*w)->tid == NUM_THREADS - 1)
 			printf("\rRendering scene... (cam %d/%d) [%d%%]", \
-				w->mlx.cam->idx, w->data.cam_nb, 100 * (w->j % n) / n);
-		w->j++;
+				(*w)->mlx.cam->idx, (*w)->data.cam_nb, 100 * ((*w)->j % n) / n);
+		(*w)->j++;
 	}
-	if (w->tid == NUM_THREADS - 1)
+	if ((*w)->tid == NUM_THREADS - 1)
 		printf("\rRendering scene... (cam %d/%d) [100%%]\n", \
-											w->mlx.cam->idx, w->data.cam_nb);
+				(*w)->mlx.cam->idx, (*w)->data.cam_nb);
+	free(edge_color);
 }
 
 int	main(int ac, char **av)

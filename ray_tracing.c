@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:36:32 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:37:19 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:44:41 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ void	try_all_intersections(t_v3 ray, t_obj *lst,
 			dist = plane_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == TR)
 			dist = triangle_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == SQ)
-			dist = square_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == CY)
 			dist = cylinder_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == CU)
-			dist = cube_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == PY)
-			dist = pyramid_intersection(ray.o, ray.d, lst);
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
 			*closest_figure = *lst;

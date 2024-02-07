@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:52:02 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 13:54:19 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/07 15:33:38 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	t_inter		inter;
 	double		closest_intersection;
 
+	(void)depth;
 	ray.o = o;
 	ray.d = d;
 	closest_intersection = INFINITY;

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:42:44 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:43:03 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:50:24 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	supersample_second_corner(int *color, int center, t_rss rss, t_wrapper *w)
 	subsquare = (int *)malloc(sizeof(int) * 4);
 	if (!subsquare)
 		error_message("fattal");
-	subsquare[0] = calc_ray(3, rss, w);
+	subsquare[0] = calc_ray(1, rss, w);
 	subsquare[1] = color[1];
 	subsquare[2] = center;
 	subsquare[3] = calc_ray(5, rss, w);

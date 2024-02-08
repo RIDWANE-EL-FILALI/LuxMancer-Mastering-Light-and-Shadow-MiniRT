@@ -107,7 +107,7 @@ BONUS_OBJ = $(addprefix $(PATH_BONUS_OBJ), $(FILE_BONUS_OBJ))
 
 ALLOBJB = $(OBJ) $(PARS_OBJ) $(LIBFT_OBJ) $(VECT_OBJ) $(BONUS_OBJ)
 
-HEADERS = ggl_mlx_define.h main.h libft/libft.h
+HEADERS =  main.h libft/libft.h
 
 all : $(NAME)
 

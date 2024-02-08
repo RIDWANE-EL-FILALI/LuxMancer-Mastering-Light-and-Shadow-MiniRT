@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:41:36 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 18:00:56 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:08:41 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	choise(t_mlx *mlx, t_scene *scene, t_obj **list, char **str)
 		parse_sphere(list, &ret);
 	else if (*ret == 'p' && *(ret + 1) == 'l' && *(ret++) && *(ret++))
 		parse_plane(list, &ret);
-	else if (*ret == 't' && *(ret + 1) == 'r' && *(ret++) && *(ret++))
-		parse_triangle(list, &ret);
 	if (*ret != '\n')
 		error_message("invalide param\n");
 	*str = ret;

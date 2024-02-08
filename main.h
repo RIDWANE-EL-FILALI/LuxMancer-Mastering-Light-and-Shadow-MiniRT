@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 19:59:38 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:34:27 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # define WHITE_COLOR     "\033[0;37m"
 # define SP 0
 # define PL 1
-# define TR 3
 # define CY 4
 
 # ifndef NUM_THREADS
@@ -252,7 +251,7 @@ double		caps_intersection(t_point o, t_point d, t_obj *lst);
 double		cylinder_intersection(t_point o, t_point d, t_obj *lst);
 void		add_coeficient(double (*rgb)[3], double coef, int color);
 double		calc_specular(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
-void		compute_light(t_v3 ray, t_inter *inter, t_scene data, t_obj *lst);
+void		compute_light(t_inter *inter, t_scene data, t_obj *lst);
 void		calc_normal(t_point p, t_point d, t_point *normal, t_obj *l);
 int			is_lit(t_point o, t_point d, t_obj *lst);
 void		error_message(char *str);
@@ -267,15 +266,11 @@ void		wrapp_data(t_mlx mlx, t_scene data, t_obj *lst, t_wrapper *wrapper);
 double		solve_plane(t_point o, t_point d, \
 				t_point plane_p, t_point plane_nv);
 double		plane_intersection(t_point o, t_point d, t_obj *lst);
-int			p_is_outside(t_point p1, t_point p2, t_point p3, t_point ip);
-double		triangle_intersection(t_point o, t_point d, t_obj *lst);
 void		try_all_intersections(t_v3 ray, t_obj *lst, \
 					t_obj *closest_figure, double *closest_intersection);
 int			trace_ray(t_point o, t_point d, t_wrapper *w, int depth);
 int			average(int color1, int color2);
 int			average_supersampled_color(int *color);
-t_point		reflect_ray(t_point ray, t_point normal);
-t_point		refract_ray(t_point d, t_point normal, t_obj *lst);
 int			*sample_pixel(int *edge_color, int last[2], \
 					t_rss rss, t_wrapper *w);
 int			*sample_first_column(int *edge_color, int last[2], \
@@ -301,10 +296,7 @@ int			supersample_fourth_corner(int *color, int center, \
 					t_rss rss, t_wrapper *w);
 int			supersample(int *color, t_rss rss, t_wrapper *w);
 void		graphic_loop(t_mlx mlx, t_scene data);
-void		parse_pyramid(t_obj **elem, char **str);
-void		parse_cube(t_obj **elem, char **str);
 void		parse_cylinder(t_obj **elem, char **str);
-void		parse_triangle(t_obj **elem, char **str);
 void		parse_plane(t_obj **elem, char **str);
 void		parse_sphere(t_obj **elem, char **str);
 int			parse_color(char **str);
@@ -344,7 +336,6 @@ void		parse_light_nomr(char **str, t_light *list,
 void		parse_camera_manda(t_mlx *mlx, t_scene *data, char **str);
 double		check_x(double x2[2]);
 double		check_dist(double x2[2], t_obj *lst);
-int			check_fd(char *bmpname);
 double		select_closest(double id1, double id2);
 void		parse_scene_manda(t_mlx *mlx, t_scene *scene, \
 				t_obj **list, char **av);

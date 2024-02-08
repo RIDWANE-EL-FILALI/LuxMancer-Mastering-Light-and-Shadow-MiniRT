@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 10:52:02 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 15:33:38 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:24:08 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	inter.p = vadd(o, scal_x_vec(closest_intersection, d));
 	calc_normal(inter.p, d, &(inter.normal), &cl_fig);
 	set_color(cl_fig, &inter, w);
-	compute_light(ray, &inter, w->data, w->lst);
+	compute_light(&inter, w->data, w->lst);
 	return (inter.color);
 }
 

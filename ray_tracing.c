@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:36:32 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/07 14:44:41 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:24:15 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	try_all_intersections(t_v3 ray, t_obj *lst,
 			dist = sphere_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == PL)
 			dist = plane_intersection(ray.o, ray.d, lst);
-		else if (lst->flag == TR)
-			dist = triangle_intersection(ray.o, ray.d, lst);
 		else if (lst->flag == CY)
 			dist = cylinder_intersection(ray.o, ray.d, lst);
 		if (dist > EPSILON && dist < *closest_intersection)
@@ -42,8 +40,8 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	t_obj		cl_fig;
 	t_inter		inter;
 	double		closest_intersection;
-	double		r;
 
+	(void)depth;
 	ray.o = o;
 	ray.d = d;
 	closest_intersection = INFINITY;
@@ -52,16 +50,8 @@ int	trace_ray(t_point o, t_point d, t_wrapper *w, int depth)
 	inter.p = vadd(o, scal_x_vec(closest_intersection, d));
 	calc_normal(inter.p, d, &(inter.normal), &cl_fig);
 	set_color(cl_fig, &inter, w);
-	apply_texture(cl_fig.texture, &inter, w->lst);
-	compute_light(ray, &inter, w->data, w->lst);
-	set_reflection_params(&cl_fig, &r);
-	if (cl_fig.refr_idx > 0)
-		inter.color = trace_ray(inter.p,
-				refract_ray(d, inter.normal, &cl_fig), w, depth);
-	if (r > 0 && depth > 0)
-		inter.ref_color = trace_ray(inter.p,
-				reflect_ray(scal_x_vec(-1, d), inter.normal), w, depth - 1);
-	return (cadd(cproduct(inter.color, 1 - r), cproduct(inter.ref_color, r)));
+	compute_light(&inter, w->data, w->lst);
+	return (inter.color);
 }
 
 int	average(int color1, int color2)

@@ -48,7 +48,7 @@ PARS_OBJ = $(addprefix $(PATH_PARS_OBJ), $(FILE_PARS_OBJ))
 PATH_MANDA = ./
 FILE_MANDA_c = main_mandatory.c \
     color.c   cylinder_intersection.c  cylinder_intersection_norm.c multi_threading.c    ray_tracing.c   sample_pixel.c  supersampel.c \
-	camera.c light.c   mlx_things.c    plane_intersection.c        reflect_and_refract.c       sphere_intersection.c  textures.c \
+	camera.c light.c   mlx_things.c    plane_intersection.c       sphere_intersection.c  textures.c \
 	ray_tracing_manda_norm.c
 PATH_MANDA_OBJ = $(PATH_OBJ)
 FILE_MANDA_OBJ = $(FILE_MANDA_c:.c=.o)
@@ -99,7 +99,7 @@ PARSB_OBJ = $(addprefix $(PATH_PARSB_OBJ), $(FILE_PARSB_OBJ))
 #FOR BONUS
 PATH_BONUS = ./
 FILE_BONUS_c = color.c   cylinder_intersection.c  cylinder_intersection_norm.c   main_bonus.c   multi_threading.c     ray_tracing.c     sample_pixel.c  supersampel.c \
-	camera.c  light.c   mlx_things.c    plane_intersection.c        reflect_and_refract.c       sphere_intersection.c  textures.c   ray_tracing_manda_norm.c
+	camera.c  light.c   mlx_things.c    plane_intersection.c      sphere_intersection.c  textures.c   ray_tracing_manda_norm.c
 
 PATH_BONUS_OBJ = $(PATH_OBJB)
 FILE_BONUS_OBJ = $(FILE_BONUS_c:.c=.o)

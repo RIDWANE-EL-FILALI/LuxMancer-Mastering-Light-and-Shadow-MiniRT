@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:43:13 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/01/28 11:43:50 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:42:52 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,8 @@ int	rainbow(t_inter *inter)
 	return (((int)color[0] << 16) | ((int)color[1] << 8) | (int)color[2]);
 }
 
-void	apply_texture(int texture, t_inter *inter, t_obj *lst)
+void	apply_texture(int texture, t_inter *inter)
 {
 	if (texture == 1)
 		inter->color = checkerboard(inter);
-	else if (texture == 2)
-		inter->normal = sinwave(inter, lst);
-	else if (texture == 3)
-		inter->color = rainbow(inter);
 }

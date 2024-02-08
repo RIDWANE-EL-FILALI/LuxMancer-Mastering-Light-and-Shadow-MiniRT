@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:00:55 by mghalmi           #+#    #+#             */
-/*   Updated: 2024/02/08 13:34:27 by mghalmi          ###   ########.fr       */
+/*   Updated: 2024/02/08 13:49:06 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,6 @@ typedef struct s_obj
 	int				flag;
 	union u_figures	fig;
 	int				color;
-	int				specular;
-	double			refl_idx;
-	double			refr_idx;
 	int				texture;
 	t_point			normal;
 	double			wavelength;
@@ -285,7 +282,7 @@ int			checkerboard(t_inter *inter);
 t_point		sinwave(t_inter *inter, t_obj *lst);
 void		define_color(double r, double g, double b, double color[3]);
 int			rainbow(t_inter *inter);
-void		apply_texture(int texture, t_inter *inter, t_obj *lst);
+void		apply_texture(int texture, t_inter *inter);
 int			supersample_first_corner(int *color, int center, \
 					t_rss rss, t_wrapper *w);
 int			supersample_second_corner(int *color, int center, \

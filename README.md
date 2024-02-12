@@ -1,4 +1,4 @@
-![image]()
+![image](https://github.com/RIDWANE-EL-FILALI/MiniRT/blob/master/images/miniRT.png)
 # 📖Sumary:
 This project is the result of a collaborative effort between me and [MOHCINE GHALMI](https://github.com/Mohcine-Ghalmi)
 
